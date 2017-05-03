@@ -39,17 +39,42 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
         eType="#//Component" eOpposite="#//Component/instances"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parents" upperBound="-1"
+        eType="#//CompositeComponent" eOpposite="#//CompositeComponent/elements"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent" eSuperTypes="#//Component">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+        upperBound="-1" eType="#//AssemblyContext" eOpposite="#//AssemblyContext/parents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delegationConnectors" lowerBound="1"
+        upperBound="-1" eType="#//DelegationConnector" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//Link" eOpposite="#//Link/containers"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="System"/>
   <eClassifiers xsi:type="ecore:EClass" name="Link">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" lowerBound="2"
         upperBound="-1" eType="#//Container" eOpposite="#//Container/links"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DelegationConnector">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
+        eType="#//Interface"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="delegationType" eType="#//DelegationType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" lowerBound="1"
+        eType="#//AssemblyContext"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DelegationType">
+    <eLiterals name="Provided"/>
+    <eLiterals name="Required"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyConnector">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="provider" lowerBound="1"
+        eType="#//AssemblyContext"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumer" lowerBound="1"
+        eType="#//AssemblyContext"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
+        eType="#//Interface"/>
   </eClassifiers>
 </ecore:EPackage>
