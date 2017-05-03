@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mdsdteam17" nsURI="http://www.example.org/mdsdteam17" nsPrefix="mdsdteam17">
+  <eClassifiers xsi:type="ecore:EClass" name="Interface">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="signatures" upperBound="-1"
+        eType="#//Signature" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiringComponents" upperBound="-1"
+        eType="#//Component" eOpposite="#//Component/requiredInterfaces"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="providingComponents" upperBound="-1"
+        eType="#//Component" eOpposite="#//Component/providedInterfaces"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Signature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" lowerBound="1"
+        eType="#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//SignatureParameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SignatureParameter">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//ParameterType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterType" abstract="true" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VoidType" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexType" eSuperTypes="#//ParameterType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleType" eSuperTypes="#//ParameterType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Component">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredInterfaces" upperBound="-1"
+        eType="#//Interface" eOpposite="#//Interface/requiringComponents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="providedInterfaces" lowerBound="1"
+        upperBound="-1" eType="#//Interface" eOpposite="#//Interface/providingComponents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
+        eType="#//AssemblyContext" eOpposite="#//AssemblyContext/component"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssemblyContext">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//Component" eOpposite="#//Component/instances"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Container">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" eOpposite="#//Link/containers"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="System"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Link">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containers" lowerBound="2"
+        upperBound="-1" eType="#//Container" eOpposite="#//Container/links"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
