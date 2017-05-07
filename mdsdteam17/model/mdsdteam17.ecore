@@ -79,12 +79,12 @@
         eType="#//Interface"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="environment" lowerBound="1"
-        eType="#//Environment"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelContext" lowerBound="1"
         eType="#//AssemblyContext"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="system" lowerBound="1"
         eType="#//CompositeComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
+        eType="#//Container"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Environment">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
