@@ -62,9 +62,5 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyConnector/consumer"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyConnector/interface"/>
     </genClasses>
-    <genClasses ecoreClass="mdsdteam17.ecore#//AllocationContext">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationContext/assemblyContext"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationContext/container"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>
