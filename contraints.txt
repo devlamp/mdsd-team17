@@ -1,0 +1,48 @@
+context: CompositeComponent
+
+Jedes Requiring/Providing-Interface muss genau einmal delegiert werden
+
+
+context: AssemblyContext
+
+Für jedes Requiring/Providing-Interface der referenzierten Component exisitiert genau ein AssemblyConnector oder DelegationConnector
+
+
+context: AssemblyConnector
+
+Der Provider bietet das entsprechende Interface auch tatsächlich an
+Der Consumer benötigt das entsprechende Interface auch tatsächlich.
+Sowohl Provider und Consumer sind direkte Elemente der gleichen CompositeComponent bzw. des gleichen Systems (d.h. TopLevel).
+
+context: DelegationConnector
+
+Sowohl AssemblyContext, wie auch CompositeComponent besitzen das referenzierte Interface. Beide müssen es Providen bzw. Requiren
+AssemblyContext muss ein direktes Kind der CompositeComponent sein
+
+
+context: AllocationContext
+
+Der referenzierte AssemblyContext ist das direkte Element des referenzierten Systems
+
+Sind zwei der Elemente mit einem AssemblyConnector untereinander verbunden, dann sind sie entweder dem gleichen Container zugeordnet oder die beiden zugeordneten Container sind miteinander verbunden.
+(man muss diesen Constraint somit auch nur Top-Level überprüfen)
+
+
+context: Link
+
+Container kann maximal einmal im Link vorkommen
+
+
+context: Component
+
+Jedes Interface kommt maximal einmal als Required und/oder Provided vor.
+
+
+context: Interface
+
+Es existieren keine zwei Signaturen mit dem gleichen Namen
+
+
+context: Signature
+
+Es existieren keine zwei Parameter mit dem gleichen Namen
