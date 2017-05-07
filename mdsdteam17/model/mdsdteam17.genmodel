@@ -38,7 +38,7 @@
     <genClasses ecoreClass="mdsdteam17.ecore#//AssemblyContext">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//AssemblyContext/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyContext/component"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyContext/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyContext/parents"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//CompositeComponent">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//CompositeComponent/elements"/>

@@ -39,12 +39,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
         eType="#//Component" eOpposite="#//Component/instances"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parents" upperBound="-1"
         eType="#//CompositeComponent" eOpposite="#//CompositeComponent/elements"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent" eSuperTypes="#//Component">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
-        upperBound="-1" eType="#//AssemblyContext" eOpposite="#//AssemblyContext/parent"/>
+        upperBound="-1" eType="#//AssemblyContext" eOpposite="#//AssemblyContext/parents"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="delegationConnectors" lowerBound="1"
         upperBound="-1" eType="#//DelegationConnector" containment="true"/>
   </eClassifiers>
