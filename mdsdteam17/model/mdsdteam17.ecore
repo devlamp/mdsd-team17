@@ -77,4 +77,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
         eType="#//Interface"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" lowerBound="1"
+        eType="#//AssemblyContext"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
+        eType="#//Container"/>
+  </eClassifiers>
 </ecore:EPackage>
