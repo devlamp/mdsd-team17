@@ -45,7 +45,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterType" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="ComplexType" eSuperTypes="#//ParameterType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleType" eSuperTypes="#//ParameterType"/>
   <eClassifiers xsi:type="ecore:EClass" name="Component">
@@ -148,7 +148,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//Container"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Environment">
+  <eClassifiers xsi:type="ecore:EClass" name="Environment" eSuperTypes="#//SystemSpecificView">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
         eType="#//Container" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containerLinks" upperBound="-1"
@@ -160,7 +160,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" lowerBound="1"
         eType="#//BlockStatement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="BranchStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="chance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="branchStatements" eType="#//BlockStatement"
@@ -184,15 +184,15 @@
         eType="#//BlockStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iterations" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Allocation">
+  <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//SystemSpecificView">
     <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontext" upperBound="-1"
         eType="#//AllocationContext" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assembly">
+  <eClassifiers xsi:type="ecore:EClass" name="Assembly" eSuperTypes="#//SystemSpecificView">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponents" upperBound="-1"
         eType="#//CompositeComponent" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemSpecificView" eSuperTypes="#//Environment #//Allocation #//Assembly">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemSpecificView" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
