@@ -24,7 +24,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//SignatureParameter/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//SignatureParameter/type"/>
     </genClasses>
-    <genClasses ecoreClass="mdsdteam17.ecore#//Type"/>
+    <genClasses ecoreClass="mdsdteam17.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Type/typName"/>
+    </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//ParameterType"/>
     <genClasses ecoreClass="mdsdteam17.ecore#//ComplexType"/>
     <genClasses ecoreClass="mdsdteam17.ecore#//SimpleType"/>
