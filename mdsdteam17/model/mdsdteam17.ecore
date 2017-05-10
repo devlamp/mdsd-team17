@@ -81,8 +81,10 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
         upperBound="-1" eType="#//AssemblyContext"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="delegationConnectors" lowerBound="1"
-        upperBound="-1" eType="#//DelegationConnector" eOpposite="#//DelegationConnector/component"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnector" upperBound="-1"
+        eType="#//AssemblyConnector" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="delegationconnector" upperBound="-1"
+        eType="#//DelegationConnector" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
@@ -114,8 +116,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="delegationType" eType="#//DelegationType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" lowerBound="1"
         eType="#//AssemblyContext"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
-        eType="#//CompositeComponent" eOpposite="#//CompositeComponent/delegationConnectors"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DelegationType">
     <eLiterals name="Provided"/>
@@ -145,8 +145,6 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelContext" lowerBound="1"
         eType="#//AssemblyContext"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="system" lowerBound="1"
-        eType="#//CompositeComponent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//Container"/>
   </eClassifiers>
