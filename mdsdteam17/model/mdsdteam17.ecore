@@ -155,7 +155,6 @@
         eType="#//Container" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containerLinks" upperBound="-1"
         eType="#//Link" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorDescription">
     <eStructuralFeatures xsi:type="ecore:EReference" name="signature" lowerBound="1"
@@ -190,11 +189,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="Allocation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontext" upperBound="-1"
         eType="#//AllocationContext" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assembly">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponents" upperBound="-1"
         eType="#//CompositeComponent" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemSpecificView" eSuperTypes="#//Environment #//Allocation #//Assembly">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
