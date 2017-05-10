@@ -79,12 +79,12 @@
       <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationConnectors->select(delegationType = Provided)->collect(interface)"/>
       <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationConnectors->select(delegationType = Required)->collect(interface)"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
-        upperBound="-1" eType="#//AssemblyContext"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnector" upperBound="-1"
         eType="#//AssemblyConnector" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="delegationconnector" upperBound="-1"
         eType="#//DelegationConnector" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//AssemblyContext" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Container">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
@@ -148,7 +148,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//Container"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Environment" eSuperTypes="#//SystemSpecificView">
+  <eClassifiers xsi:type="ecore:EClass" name="Environment" eSuperTypes="#//View">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
         eType="#//Container" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containerLinks" upperBound="-1"
@@ -184,15 +184,27 @@
         eType="#//BlockStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iterations" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//SystemSpecificView">
+  <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//View">
     <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontext" upperBound="-1"
         eType="#//AllocationContext" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assembly" eSuperTypes="#//SystemSpecificView">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponents" upperBound="-1"
-        eType="#//CompositeComponent" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Assembly" eSuperTypes="#//View">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponent" upperBound="-1"
+        eType="#//CompositeComponent"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemSpecificView" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="View" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Repository" eSuperTypes="#//View">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interface" upperBound="-1"
+        eType="#//Interface" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+        eType="#//Component" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Modelcontainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="view" upperBound="-1" eType="#//View"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//Type"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

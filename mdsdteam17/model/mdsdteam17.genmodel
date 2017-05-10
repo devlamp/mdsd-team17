@@ -42,9 +42,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyContext/component"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//CompositeComponent">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//CompositeComponent/elements"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//CompositeComponent/assemblyconnector"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//CompositeComponent/delegationconnector"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//CompositeComponent/elements"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//Container">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Container/links"/>
@@ -99,10 +99,18 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Allocation/allocationcontext"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//Assembly">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Assembly/compositecomponents"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Assembly/compositecomponent"/>
     </genClasses>
-    <genClasses ecoreClass="mdsdteam17.ecore#//SystemSpecificView">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//SystemSpecificView/name"/>
+    <genClasses ecoreClass="mdsdteam17.ecore#//View">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//View/name"/>
+    </genClasses>
+    <genClasses ecoreClass="mdsdteam17.ecore#//Repository">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Repository/interface"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Repository/component"/>
+    </genClasses>
+    <genClasses ecoreClass="mdsdteam17.ecore#//Modelcontainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/view"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/type"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
