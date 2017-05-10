@@ -72,6 +72,7 @@
     <genClasses ecoreClass="mdsdteam17.ecore#//Environment">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Environment/containers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Environment/containerLinks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Environment/name"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//BehaviorDescription">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//BehaviorDescription/signature"/>
@@ -95,6 +96,14 @@
     <genClasses ecoreClass="mdsdteam17.ecore#//LoopStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//LoopStatement/statements"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//LoopStatement/iterations"/>
+    </genClasses>
+    <genClasses ecoreClass="mdsdteam17.ecore#//Allocation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Allocation/allocationcontext"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Allocation/name"/>
+    </genClasses>
+    <genClasses ecoreClass="mdsdteam17.ecore#//Assembly">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Assembly/compositecomponents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Assembly/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
