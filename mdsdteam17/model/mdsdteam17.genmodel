@@ -12,8 +12,6 @@
     <genClasses ecoreClass="mdsdteam17.ecore#//Interface">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Interface/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Interface/signatures"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Interface/requiringComponents"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Interface/providingComponents"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//Signature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Signature/name"/>
@@ -25,17 +23,17 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//SignatureParameter/type"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//Type">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Type/typName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Type/typeName"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//ParameterType"/>
     <genClasses ecoreClass="mdsdteam17.ecore#//ComplexType"/>
     <genClasses ecoreClass="mdsdteam17.ecore#//SimpleType"/>
     <genClasses ecoreClass="mdsdteam17.ecore#//Component">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//Component/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/requiredInterfaces"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/providedInterfaces"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/instances"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/behaviors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/requiredInterface"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Component/providedInterface"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//AssemblyContext">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//AssemblyContext/name"/>
