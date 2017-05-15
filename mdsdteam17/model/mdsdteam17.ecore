@@ -4,11 +4,6 @@
   <eAnnotations source="http://www.eclipse.org/OCL/Import">
     <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
   </eAnnotations>
-  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
-  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="View" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -19,6 +14,11 @@
         eType="#//RepositoryPackage/Type" containment="true"/>
   </eClassifiers>
   <eSubpackages name="EnvironmentPackage">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EClass" name="Environment" eSuperTypes="#//View">
       <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
           eType="#//EnvironmentPackage/Container" containment="true"/>
@@ -50,12 +50,6 @@
           eType="#//AllocationPackage/AllocationContext" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-        <details key="constraints" value="assemblyContextIsInTopLevel"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="assemblyContextIsInTopLevel" value="&#xA;&#x9;&#x9;&#x9;system.elements->includes(topLevelContext)"/>
-      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelContext" lowerBound="1"
           eType="#//AssemblyPackage/AssemblyContext"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
@@ -63,6 +57,11 @@
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="AssemblyPackage">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EEnum" name="DelegationType">
       <eLiterals name="Provided"/>
       <eLiterals name="Required"/>
@@ -72,14 +71,6 @@
           upperBound="-1" eType="#//AssemblyPackage/CompositeComponent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DelegationConnector">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-        <details key="constraints" value="assemblyContextIsTopLevel assemblyContextHasInterface componentHasInterface"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="assemblyContextIsTopLevel" value="&#xA;&#x9;&#x9;&#x9;component.elements->includes(assemblyContext)"/>
-        <details key="assemblyContextHasInterface" value="&#xA;&#x9;&#x9;&#x9;if delegationType = Provided then&#xA;&#x9;&#x9;&#x9;assemblyContext.component.providedInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;assemblyContext.component.requiredInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;endif"/>
-        <details key="componentHasInterface" value="&#xA;&#x9;&#x9;&#x9;if delegationType = Provided then&#xA;&#x9;&#x9;&#x9;component.providedInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;component.requiredInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;endif"/>
-      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
           eType="#//RepositoryPackage/Interface"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="delegationType" eType="#//AssemblyPackage/DelegationType"/>
@@ -112,8 +103,8 @@
         <details key="constraints" value="providedInterfacesAreDelegatedOnce requiredInterfacesAreDelegatedOnce"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationConnectors->select(delegationType = Provided)->collect(interface)"/>
-        <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationConnectors->select(delegationType = Required)->collect(interface)"/>
+        <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationconnectors->select(delegationType = Provided)->collect(interface)"/>
+        <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationconnectors->select(delegationType = Required)->collect(interface)"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnectors" upperBound="-1"
           eType="#//AssemblyPackage/AssemblyConnector" containment="true"/>
@@ -156,6 +147,11 @@
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="RepositoryPackage">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EClass" name="Repository" eSuperTypes="#//View">
       <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
           eType="#//RepositoryPackage/Interface" containment="true"/>
@@ -186,9 +182,9 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="behaviors" upperBound="-1"
           eType="#//ComponentBehaviorPackage/BehaviorDescription" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredInterface" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredInterfaces" upperBound="-1"
           eType="#//RepositoryPackage/Interface"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="providedInterface" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="providedInterfaces" lowerBound="1"
           upperBound="-1" eType="#//RepositoryPackage/Interface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Type">

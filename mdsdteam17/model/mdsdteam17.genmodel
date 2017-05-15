@@ -119,9 +119,9 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//RepositoryPackage/Component/name"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/behaviors"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/requiredInterface"/>
+            ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/requiredInterfaces"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/providedInterface"/>
+            ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/providedInterfaces"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//RepositoryPackage/Type">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//RepositoryPackage/Type/typeName"/>
