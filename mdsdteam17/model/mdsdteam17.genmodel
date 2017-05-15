@@ -14,8 +14,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//View/name"/>
     </genClasses>
     <genClasses ecoreClass="mdsdteam17.ecore#//Modelcontainer">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/view"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/views"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/types"/>
     </genClasses>
     <nestedGenPackages prefix="NewPackage1" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//EnvironmentPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//EnvironmentPackage/Environment">
@@ -35,7 +35,7 @@
     </nestedGenPackages>
     <nestedGenPackages prefix="NewPackage2" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//AllocationPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//AllocationPackage/Allocation">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationPackage/Allocation/allocationcontext"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationPackage/Allocation/allocationcontexts"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//AllocationPackage/AllocationContext">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -51,7 +51,7 @@
       </genEnums>
       <genClasses ecoreClass="mdsdteam17.ecore#//AssemblyPackage/Assembly">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/Assembly/compositecomponent"/>
+            ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/Assembly/compositecomponents"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//AssemblyPackage/DelegationConnector">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -74,8 +74,8 @@
             ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/AssemblyConnector/interface"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//AssemblyPackage/CompositeComponent">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/assemblyconnector"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/delegationconnector"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/assemblyconnectors"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/delegationconnectors"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/elements"/>
       </genClasses>
     </nestedGenPackages>
@@ -108,8 +108,8 @@
     </nestedGenPackages>
     <nestedGenPackages prefix="NewPackage5" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//RepositoryPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//RepositoryPackage/Repository">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/interface"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/component"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/interfaces"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/components"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//RepositoryPackage/Interface">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//RepositoryPackage/Interface/name"/>
@@ -117,8 +117,6 @@
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//RepositoryPackage/Component">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//RepositoryPackage/Component/name"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/instances"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/behaviors"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Component/requiredInterface"/>

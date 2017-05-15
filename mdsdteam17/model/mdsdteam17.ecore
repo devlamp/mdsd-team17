@@ -13,10 +13,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Modelcontainer">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="view" upperBound="-1" eType="#//View"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" upperBound="-1" eType="#//RepositoryPackage/Type"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="views" upperBound="-1"
+        eType="#//View" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="#//RepositoryPackage/Type" containment="true"/>
   </eClassifiers>
   <eSubpackages name="EnvironmentPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Environment" eSuperTypes="#//View">
@@ -46,7 +46,7 @@
   </eSubpackages>
   <eSubpackages name="AllocationPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//View">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontext" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontexts" upperBound="-1"
           eType="#//AllocationPackage/AllocationContext" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
@@ -68,8 +68,8 @@
       <eLiterals name="Required"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Assembly" eSuperTypes="#//View">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponent" upperBound="-1"
-          eType="#//AssemblyPackage/CompositeComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponents"
+          upperBound="-1" eType="#//AssemblyPackage/CompositeComponent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DelegationConnector">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -90,7 +90,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
-          eType="#//RepositoryPackage/Component" eOpposite="#//RepositoryPackage/Component/instances"/>
+          eType="#//RepositoryPackage/Component"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AssemblyConnector">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -115,9 +115,9 @@
         <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationConnectors->select(delegationType = Provided)->collect(interface)"/>
         <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationConnectors->select(delegationType = Required)->collect(interface)"/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnector" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnectors" upperBound="-1"
           eType="#//AssemblyPackage/AssemblyConnector" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="delegationconnector"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="delegationconnectors"
           upperBound="-1" eType="#//AssemblyPackage/DelegationConnector" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
           eType="#//AssemblyPackage/AssemblyContext" containment="true"/>
@@ -157,9 +157,9 @@
   </eSubpackages>
   <eSubpackages name="RepositoryPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Repository" eSuperTypes="#//View">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="interface" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
           eType="#//RepositoryPackage/Interface" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
           eType="#//RepositoryPackage/Component" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Interface">
@@ -184,8 +184,6 @@
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
-          eType="#//AssemblyPackage/AssemblyContext" eOpposite="#//AssemblyPackage/AssemblyContext/component"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="behaviors" upperBound="-1"
           eType="#//ComponentBehaviorPackage/BehaviorDescription" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="requiredInterface" upperBound="-1"
