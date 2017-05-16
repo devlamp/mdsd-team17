@@ -91,7 +91,7 @@
         <details key="constraints" value="assemblyContextHasInterface"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="assemblyContextHasInterface" value="&#xA;&#x9;&#x9;&#x9;&#x9;if delegationType = Provided then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.providedInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.requiredInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="assemblyContextHasInterface" value="&#xA;&#x9;&#x9;&#x9;&#x9;if delegationType = DelegationType::Provided then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.providedInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.requiredInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
           eType="#//RepositoryPackage/Interface"/>
@@ -111,7 +111,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
         <details key="providerHasInterface" value="&#xA;&#x9;&#x9;&#x9;provider.component.providedInterfaces->includes(interface)"/>
-        <details key="comsumerHasInterface" value="&#xA;&#x9;&#x9;&#x9;consumer.component.providedInterfaces->includes(interface)"/>
+        <details key="comsumerHasInterface" value="&#xA;&#x9;&#x9;&#x9;consumer.component.requiredInterfaces->includes(interface)"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="provider" lowerBound="1"
           eType="#//AssemblyPackage/AssemblyContext"/>
@@ -125,8 +125,8 @@
         <details key="constraints" value="providedInterfacesAreDelegatedOnce requiredInterfacesAreDelegatedOnce delegationsReferenceDirectElements assemblyConnectorsReferenceDirectElements"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationconnectors->select(delegationType = Provided)->collect(interface)"/>
-        <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationconnectors->select(delegationType = Required)->collect(interface)"/>
+        <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces->asBag() = delegationconnectors->select(delegationType = DelegationType::Provided)->collect(interface)->asBag()"/>
+        <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces->asBag() = delegationconnectors->select(delegationType = DelegationType::Required)->collect(interface)->asBag()"/>
         <details key="delegationsReferenceDirectElements" value="&#xA;&#x9;&#x9;&#x9;&#x9;elements->includesAll(delegationconnectors->collect(assemblyContext))"/>
         <details key="assemblyConnectorsReferenceDirectElements" value="&#xA;&#x9;&#x9;&#x9;&#x9;elements->includesAll(assemblyconnectors->collect(consumer)->union(assemblyconnectors->collect(provider)))"/>
       </eAnnotations>
