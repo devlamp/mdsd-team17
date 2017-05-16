@@ -13,7 +13,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//RepositoryPackage/Type" containment="true"/>
   </eClassifiers>
-  <eSubpackages name="EnvironmentPackage">
+  <eSubpackages name="EnvironmentPackage" nsURI="http://www.example.org/mdsdteam17/EnvironmentPackage" nsPrefix="EnvironmentPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
@@ -44,7 +44,7 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="AllocationPackage">
+  <eSubpackages name="AllocationPackage" nsURI="http://www.example.org/mdsdteam17/AllocationPackage" nsPrefix="AllocationPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//View">
       <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontexts" upperBound="-1"
           eType="#//AllocationPackage/AllocationContext" containment="true"/>
@@ -56,7 +56,7 @@
           eType="#//EnvironmentPackage/Container"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="AssemblyPackage">
+  <eSubpackages name="AssemblyPackage" nsURI="http://www.example.org/mdsdteam17/AssemblyPackage" nsPrefix="AssemblyPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
@@ -114,7 +114,7 @@
           eType="#//AssemblyPackage/AssemblyContext" containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="ComponentBehaviorPackage">
+  <eSubpackages name="ComponentBehaviorPackage" nsURI="http://www.example.org/mdsdteam17/ComponentBehaviorPackage" nsPrefix="ComponentBehaviorPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="ExternalAction" eSuperTypes="#//ComponentBehaviorPackage/Statement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
@@ -146,7 +146,7 @@
           eType="#//ComponentBehaviorPackage/BlockStatement" containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="RepositoryPackage">
+  <eSubpackages name="RepositoryPackage" nsURI="http://www.example.org/mdsdteam17/RepositoryPackage" nsPrefix="RepositoryPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>

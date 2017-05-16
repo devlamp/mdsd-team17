@@ -6,10 +6,6 @@
     operationReflection="true" importOrganizing="true">
   <foreignModel>mdsdteam17.ecore</foreignModel>
   <genPackages prefix="Mdsdteam17" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="mdsdteam17.ecore#//AssemblyPackage/DelegationType">
-      <genEnumLiterals ecoreEnumLiteral="mdsdteam17.ecore#//AssemblyPackage/DelegationType/Provided"/>
-      <genEnumLiterals ecoreEnumLiteral="mdsdteam17.ecore#//AssemblyPackage/DelegationType/Required"/>
-    </genEnums>
     <genClasses ecoreClass="mdsdteam17.ecore#//View">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//View/name"/>
     </genClasses>
@@ -17,7 +13,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/views"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//Modelcontainer/types"/>
     </genClasses>
-    <nestedGenPackages prefix="NewPackage1" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//EnvironmentPackage">
+    <nestedGenPackages prefix="EnvironmentPackage" disposableProviderFactory="true"
+        ecorePackage="mdsdteam17.ecore#//EnvironmentPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//EnvironmentPackage/Environment">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//EnvironmentPackage/Environment/containers"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//EnvironmentPackage/Environment/containerLinks"/>
@@ -33,7 +30,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//EnvironmentPackage/Container/name"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="NewPackage2" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//AllocationPackage">
+    <nestedGenPackages prefix="AllocationPackage" disposableProviderFactory="true"
+        ecorePackage="mdsdteam17.ecore#//AllocationPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//AllocationPackage/Allocation">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationPackage/Allocation/allocationcontexts"/>
       </genClasses>
@@ -44,7 +42,7 @@
             ecoreFeature="ecore:EReference mdsdteam17.ecore#//AllocationPackage/AllocationContext/container"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="NewPackage3" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//AssemblyPackage">
+    <nestedGenPackages prefix="AssemblyPackage" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//AssemblyPackage">
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="mdsdteam17.ecore#//AssemblyPackage/DelegationType">
         <genEnumLiterals ecoreEnumLiteral="mdsdteam17.ecore#//AssemblyPackage/DelegationType/Provided"/>
         <genEnumLiterals ecoreEnumLiteral="mdsdteam17.ecore#//AssemblyPackage/DelegationType/Required"/>
@@ -79,7 +77,8 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//AssemblyPackage/CompositeComponent/elements"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="NewPackage4" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//ComponentBehaviorPackage">
+    <nestedGenPackages prefix="ComponentBehaviorPackage" disposableProviderFactory="true"
+        ecorePackage="mdsdteam17.ecore#//ComponentBehaviorPackage">
       <genClasses image="false" ecoreClass="mdsdteam17.ecore#//ComponentBehaviorPackage/Statement"/>
       <genClasses ecoreClass="mdsdteam17.ecore#//ComponentBehaviorPackage/ExternalAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -106,7 +105,8 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//ComponentBehaviorPackage/BehaviorDescription/statements"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="NewPackage5" disposableProviderFactory="true" ecorePackage="mdsdteam17.ecore#//RepositoryPackage">
+    <nestedGenPackages prefix="RepositoryPackage" disposableProviderFactory="true"
+        ecorePackage="mdsdteam17.ecore#//RepositoryPackage">
       <genClasses ecoreClass="mdsdteam17.ecore#//RepositoryPackage/Repository">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/interfaces"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//RepositoryPackage/Repository/components"/>
