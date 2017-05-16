@@ -1,12 +1,12 @@
 context: CompositeComponent
 
-Jedes Requiring/Providing-Interface muss genau einmal delegiert werden. //Hinzugefügt
+(1) Jedes Requiring/Providing-Interface muss genau einmal delegiert werden. //Hinzugefügt
 
 Von DelegationConnector referenzierter AssemblyContext muss ein direktes Kind der CompositeComponent sein //Hinzugefügt
 
-Der Provider bietet das entsprechende Interface auch tatsächlich an //Hinzugefügt
-Der Consumer benötigt das entsprechende Interface auch tatsächlich. //Hinzugefügt
-Sowohl Provider und Consumer sind direkte Elemente der gleichen CompositeComponent bzw. des gleichen Systems (d.h. TopLevel). //Hinzugefügt
+(2) Der Provider bietet das entsprechende Interface auch tatsächlich an //Hinzugefügt
+(3) Der Consumer benötigt das entsprechende Interface auch tatsächlich. //Hinzugefügt
+(4) Sowohl Provider und Consumer sind direkte Elemente der gleichen CompositeComponent bzw. des gleichen Systems (d.h. TopLevel). //Hinzugefügt
 
 context: DelegationConnector
 
@@ -15,15 +15,17 @@ Die über die DelegationConnectoren referenzierten AssemblyContexte besitzen die
 
 context: AssemblyContext
 
-Für jedes Requiring/Providing-Interface der referenzierten Component existiert genau ein AssemblyConnector oder DelegationConnector
+Für jedes Requiring/Providing-Interface der referenzierten Component existiert genau ein AssemblyConnector oder DelegationConnector //Ist wahrscheinlich schon durch (1) - (4) implementiert.
 
 
 context: AllocationContext
 
 Der referenzierte AssemblyContext ist das direkte Element des referenzierten Systems //wird nicht mehr benötigt
 
-Sind zwei der Elemente mit einem AssemblyConnector untereinander verbunden, dann sind sie entweder dem gleichen Container zugeordnet oder die beiden zugeordneten Container sind miteinander verbunden.
-(man muss diesen Constraint somit auch nur Top-Level überprüfen)   // Hierfür braucht man eventuell eine Referenz von CompositeComponent auf AssemblyConnector
+
+context: Allocation
+
+Sind zwei der Elemente mit einem AssemblyConnector untereinander verbunden, dann sind sie entweder dem gleichen Container zugeordnet oder die beiden zugeordneten Container sind miteinander verbunden. // Hinzugefügt
 
 
 context: Link
@@ -48,6 +50,6 @@ Es existieren keine zwei Parameter mit dem gleichen Namen // Hinzugefügt
 
 context: Component
 
-Jede BehavoirDescription bezieht sich auf eine Signatur eines provided Interface
+Jede BehavoirDescription bezieht sich auf eine Signatur eines provided Interface // Hinzugefügt
 
 Jede vorkommende ExternalAction bezieht sich auf auf eine Signatur eines required Interface

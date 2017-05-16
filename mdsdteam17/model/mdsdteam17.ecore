@@ -47,9 +47,22 @@
   </eSubpackages>
   <eSubpackages name="AllocationPackage" nsURI="http://www.example.org/mdsdteam17/AllocationPackage"
       nsPrefix="AllocationPackage">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//View">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="ComponentsAreAllocatedOnLinkedContainers"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="ComponentsAreAllocatedOnLinkedContainers" value="&#xA;&#x9;&#x9;&#x9;compositecomponent.assemblyconnectors->forAll(assConnector | &#xA;&#x9;&#x9;&#x9;&#x9;/* They are both on the same container */&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container->asSet()->size() = 1&#xA;&#x9;&#x9;&#x9;&#x9;or&#xA;&#x9;&#x9;&#x9;&#x9;/* They are on different containers which are linked */&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container.links->exists(l1, l2 | l1 = l2)&#xA;&#x9;&#x9;&#x9;)"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontexts" upperBound="-1"
           eType="#//AllocationPackage/AllocationContext" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponent" lowerBound="1"
+          eType="#//AssemblyPackage/CompositeComponent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
       <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelContext" lowerBound="1"
@@ -71,7 +84,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Assembly" eSuperTypes="#//View">
       <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponents"
-          upperBound="-1" eType="#//AssemblyPackage/CompositeComponent"/>
+          lowerBound="1" eType="#//AssemblyPackage/CompositeComponent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DelegationConnector">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -176,7 +189,7 @@
         <details key="constraints" value="DistinctSignatureNames"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="DistinctSignatureNames" value="&#xA;&#x9;&#x9;&#x9;signatures->isUnique(self.name)"/>
+        <details key="DistinctSignatureNames" value="&#xA;&#x9;&#x9;&#x9;signatures->isUnique(x | x.name)"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -185,11 +198,12 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Component">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-        <details key="constraints" value="DistinctProvidedInterfaces DistinctRequiredInterfaces"/>
+        <details key="constraints" value="DistinctProvidedInterfaces DistinctRequiredInterfaces BehaviorIsProvidedSignature"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
         <details key="DistinctProvidedInterfaces" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces->asSet()->size() = providedInterfaces->size()"/>
         <details key="DistinctRequiredInterfaces" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces->asSet()->size() = requiredInterfaces->size()"/>
+        <details key="BehaviorIsProvidedSignature" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces->collect(signatures)->includesAll(behaviors->collect(signature))"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -212,7 +226,7 @@
         <details key="constraints" value="DistinctParameterNames"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="DistinctParameterNames" value="&#xA;&#x9;&#x9;&#x9;parameters->isUnique(self.name)"/>
+        <details key="DistinctParameterNames" value="&#xA;&#x9;&#x9;&#x9;parameters->isUnique(x | x.name)"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

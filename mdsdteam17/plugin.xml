@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17"
+            class="mdsdteam17.Mdsdteam17Package"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17/EnvironmentPackage"
+            class="mdsdteam17.EnvironmentPackage.EnvironmentPackagePackage"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17/AllocationPackage"
+            class="mdsdteam17.AllocationPackage.AllocationPackagePackage"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17/AssemblyPackage"
+            class="mdsdteam17.AssemblyPackage.AssemblyPackagePackage"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17/ComponentBehaviorPackage"
+            class="mdsdteam17.ComponentBehaviorPackage.ComponentBehaviorPackagePackage"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated mdsdteam17 -->
+      <package
+            uri="http://www.example.org/mdsdteam17/RepositoryPackage"
+            class="mdsdteam17.RepositoryPackage.RepositoryPackagePackage"
+            genModel="model/mdsdteam17.genmodel"/>
+   </extension>
+
+</plugin>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdsdteam17:Modelcontainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:EnvironmentPackage="http://www.example.org/mdsdteam17/EnvironmentPackage" xmlns:RepositoryPackage="http://www.example.org/mdsdteam17/RepositoryPackage" xmlns:mdsdteam17="http://www.example.org/mdsdteam17">
+  <views xsi:type="RepositoryPackage:Repository">
+    <interfaces name="HTTP">
+      <signatures name="HTTPDownload" returnType="//@types.0"/>
+      <signatures name="HTTPUpload" returnType="//@types.0"/>
+    </interfaces>
+    <interfaces name="MediaStore">
+      <signatures name="download" returnType="//@types.0"/>
+      <signatures name="upload" returnType="//@types.0"/>
+    </interfaces>
+    <components name="WebGUI" requiredInterfaces="//@views.0/@interfaces.1" providedInterfaces="//@views.0/@interfaces.0"/>
+  </views>
+  <views xsi:type="EnvironmentPackage:Environment">
+    <containers links="//@views.1/@containerLinks.0" name="Application Server"/>
+    <containers links="//@views.1/@containerLinks.0" name="Database Server"/>
+    <containerLinks containers="//@views.1/@containers.0 //@views.1/@containers.1" name="Network"/>
+  </views>
+  <types typeName="void"/>
+</mdsdteam17:Modelcontainer>
