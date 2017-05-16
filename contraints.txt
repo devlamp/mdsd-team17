@@ -1,24 +1,21 @@
-﻿context: CompositeComponent
+context: CompositeComponent
 
 Jedes Requiring/Providing-Interface muss genau einmal delegiert werden. //Hinzugefügt
 
-Von DelegationConnector referenzierter AssemblyContext muss ein direktes Kind der CompositeComponent sein
+Von DelegationConnector referenzierter AssemblyContext muss ein direktes Kind der CompositeComponent sein //Hinzugefügt
 
-Die über die DelegationConnectoren referenzierten AssemblyContexte besitzen die gleichen referenzierten Interfaces wie die CompositeComponent. Beide müssen sie Providen bzw. Requiren
+Der Provider bietet das entsprechende Interface auch tatsächlich an //Hinzugefügt
+Der Consumer benötigt das entsprechende Interface auch tatsächlich. //Hinzugefügt
+Sowohl Provider und Consumer sind direkte Elemente der gleichen CompositeComponent bzw. des gleichen Systems (d.h. TopLevel). //Hinzugefügt
+
+context: DelegationConnector
+
+Die über die DelegationConnectoren referenzierten AssemblyContexte besitzen die gleichen referenzierten Interfaces wie die CompositeComponent. Beide müssen sie Providen bzw. Requiren //Hinzugefügt
 
 
 context: AssemblyContext
 
 Für jedes Requiring/Providing-Interface der referenzierten Component existiert genau ein AssemblyConnector oder DelegationConnector
-
-
-context: AssemblyConnector
-
-Der Provider bietet das entsprechende Interface auch tatsächlich an //Hinzugefügt
-Der Consumer benötigt das entsprechende Interface auch tatsächlich. //Hinzugefügt
-Sowohl Provider und Consumer sind direkte Elemente der gleichen CompositeComponent bzw. des gleichen Systems (d.h. TopLevel).
-// Hierfür fehlt wieder die entsprechende Referenz
-// Eventuell macht es auch einfach Sinn festzulegen, dass AssemblyContexte immer genau einer CompositeComponent zugeordnet sind.
 
 
 context: AllocationContext

@@ -13,7 +13,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//RepositoryPackage/Type" containment="true"/>
   </eClassifiers>
-  <eSubpackages name="EnvironmentPackage" nsURI="http://www.example.org/mdsdteam17/EnvironmentPackage" nsPrefix="EnvironmentPackage">
+  <eSubpackages name="EnvironmentPackage" nsURI="http://www.example.org/mdsdteam17/EnvironmentPackage"
+      nsPrefix="EnvironmentPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
@@ -44,7 +45,8 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="AllocationPackage" nsURI="http://www.example.org/mdsdteam17/AllocationPackage" nsPrefix="AllocationPackage">
+  <eSubpackages name="AllocationPackage" nsURI="http://www.example.org/mdsdteam17/AllocationPackage"
+      nsPrefix="AllocationPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Allocation" eSuperTypes="#//View">
       <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontexts" upperBound="-1"
           eType="#//AllocationPackage/AllocationContext" containment="true"/>
@@ -56,7 +58,8 @@
           eType="#//EnvironmentPackage/Container"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="AssemblyPackage" nsURI="http://www.example.org/mdsdteam17/AssemblyPackage" nsPrefix="AssemblyPackage">
+  <eSubpackages name="AssemblyPackage" nsURI="http://www.example.org/mdsdteam17/AssemblyPackage"
+      nsPrefix="AssemblyPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
@@ -71,6 +74,12 @@
           upperBound="-1" eType="#//AssemblyPackage/CompositeComponent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DelegationConnector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="assemblyContextHasInterface"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="assemblyContextHasInterface" value="&#xA;&#x9;&#x9;&#x9;&#x9;if delegationType = Provided then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.providedInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;assemblyContext.component.requiredInterfaces->includes(interface)&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="interface" lowerBound="1"
           eType="#//RepositoryPackage/Interface"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="delegationType" eType="#//AssemblyPackage/DelegationType"/>
@@ -100,11 +109,13 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeComponent" eSuperTypes="#//RepositoryPackage/Component">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-        <details key="constraints" value="providedInterfacesAreDelegatedOnce requiredInterfacesAreDelegatedOnce"/>
+        <details key="constraints" value="providedInterfacesAreDelegatedOnce requiredInterfacesAreDelegatedOnce delegationsReferenceDirectElements assemblyConnectorsReferenceDirectElements"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
         <details key="providedInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;providedInterfaces = delegationconnectors->select(delegationType = Provided)->collect(interface)"/>
         <details key="requiredInterfacesAreDelegatedOnce" value="&#xA;&#x9;&#x9;&#x9;requiredInterfaces = delegationconnectors->select(delegationType = Required)->collect(interface)"/>
+        <details key="delegationsReferenceDirectElements" value="&#xA;&#x9;&#x9;&#x9;&#x9;elements->includesAll(delegationconnectors->collect(assemblyContext))"/>
+        <details key="assemblyConnectorsReferenceDirectElements" value="&#xA;&#x9;&#x9;&#x9;&#x9;elements->includesAll(assemblyconnectors->collect(consumer)->union(assemblyconnectors->collect(provider)))"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyconnectors" upperBound="-1"
           eType="#//AssemblyPackage/AssemblyConnector" containment="true"/>
@@ -114,7 +125,8 @@
           eType="#//AssemblyPackage/AssemblyContext" containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="ComponentBehaviorPackage" nsURI="http://www.example.org/mdsdteam17/ComponentBehaviorPackage" nsPrefix="ComponentBehaviorPackage">
+  <eSubpackages name="ComponentBehaviorPackage" nsURI="http://www.example.org/mdsdteam17/ComponentBehaviorPackage"
+      nsPrefix="ComponentBehaviorPackage">
     <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="ExternalAction" eSuperTypes="#//ComponentBehaviorPackage/Statement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
@@ -146,7 +158,8 @@
           eType="#//ComponentBehaviorPackage/BlockStatement" containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="RepositoryPackage" nsURI="http://www.example.org/mdsdteam17/RepositoryPackage" nsPrefix="RepositoryPackage">
+  <eSubpackages name="RepositoryPackage" nsURI="http://www.example.org/mdsdteam17/RepositoryPackage"
+      nsPrefix="RepositoryPackage">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
       <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
