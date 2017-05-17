@@ -3,3 +3,5 @@
 /mdsdteam17.editor
 /mdsdteam17.tests
 /mdsdteam17/src/mdsdteam17
+src-gen/
+xtend-gen/
