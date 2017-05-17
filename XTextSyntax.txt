@@ -1,0 +1,32 @@
+
+# void ist implizit
+SimpleTypes: int, double, string # /**/ // <!-- -->
+ComplexTypes: <C1>
+		
+Environmen: <Name>
+	Container: <Name>
+	Container: <Name>
+	Link <Link Name> links
+		<ContainerName1>
+		<ContainerName2>
+		<ContainerName3>
+	
+Repository: <Name>
+	Interface: <Name>
+		- void download(int: parameter1)
+		
+	Component: <Name>
+	
+	
+Component: Component1
+	-( InterfaceName
+	-O 
+		- void download(int: parameter1)
+		
+		
+Component Behavior <RepoName>.<ComponentName>.<SignatureName>
+	for 12 
+		if 0.2
+			resource demand: 76.8
+		else
+			call <InterfaceName>.<SignatureName>
