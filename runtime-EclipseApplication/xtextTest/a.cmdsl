@@ -1,0 +1,8 @@
+Modelcontainer{
+	types { 
+		Type
+		{
+		typeName asd
+	}
+	}
+}

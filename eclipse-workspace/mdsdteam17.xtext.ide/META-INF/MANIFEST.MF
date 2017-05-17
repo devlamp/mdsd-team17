@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: mdsdteam17.xtext.ide
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: mdsdteam17.xtext.ide; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: mdsdteam17.xtext,
+ mdsdteam17,
+ org.eclipse.xtext.ide,
+ org.eclipse.xtext.xbase.ide
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: mdsdteam17.cmdsl.ide.contentassist.antlr.internal,
+ mdsdteam17.cmdsl.ide.contentassist.antlr
+
