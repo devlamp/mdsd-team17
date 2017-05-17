@@ -17,40 +17,40 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated mdsdteam17 -->
       <package
-            uri="http://www.example.org/mdsdteam17/EnvironmentPackage"
-            class="mdsdteam17.EnvironmentPackage.EnvironmentPackagePackage"
+            uri="http://www.example.org/mdsdteam17/environment"
+            class="mdsdteam17.environment.EnvironmentPackagePackage"
             genModel="model/mdsdteam17.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated mdsdteam17 -->
       <package
-            uri="http://www.example.org/mdsdteam17/AllocationPackage"
-            class="mdsdteam17.AllocationPackage.AllocationPackagePackage"
+            uri="http://www.example.org/mdsdteam17/allocation"
+            class="mdsdteam17.allocation.AllocationPackagePackage"
             genModel="model/mdsdteam17.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated mdsdteam17 -->
       <package
-            uri="http://www.example.org/mdsdteam17/AssemblyPackage"
-            class="mdsdteam17.AssemblyPackage.AssemblyPackagePackage"
+            uri="http://www.example.org/mdsdteam17/assembly"
+            class="mdsdteam17.assembly.AssemblyPackagePackage"
             genModel="model/mdsdteam17.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated mdsdteam17 -->
       <package
-            uri="http://www.example.org/mdsdteam17/ComponentBehaviorPackage"
-            class="mdsdteam17.ComponentBehaviorPackage.ComponentBehaviorPackagePackage"
+            uri="http://www.example.org/mdsdteam17/componentbehavior"
+            class="mdsdteam17.componentbehavior.ComponentBehaviorPackagePackage"
             genModel="model/mdsdteam17.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated mdsdteam17 -->
       <package
-            uri="http://www.example.org/mdsdteam17/RepositoryPackage"
-            class="mdsdteam17.RepositoryPackage.RepositoryPackagePackage"
+            uri="http://www.example.org/mdsdteam17/repository"
+            class="mdsdteam17.repository.RepositoryPackagePackage"
             genModel="model/mdsdteam17.genmodel"/>
    </extension>
 
