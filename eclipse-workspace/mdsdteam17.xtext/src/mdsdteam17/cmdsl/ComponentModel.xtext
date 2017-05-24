@@ -12,32 +12,88 @@ import "platform:/resource/mdsdteam17/model/mdsdteam17.ecore#//assembly" as asse
 
 Modelcontainer returns Modelcontainer:
 	{Modelcontainer}
-	'Modelcontainer'
-	'{'
-		('types' '{' types+=Type ( "," types+=Type)* '}' )?
-	'}';
+	'types'
+		('simple' types+=SimpleType ( "," types+=SimpleType)* )*
+		('complex' types+=ComplexType ( "," types+=ComplexType)* )*
+	
+	(views+=View)*
+	;
 
+View returns View:
+	RepositoryView | AllocationView | EnvironmentView
+;
 
-Type returns repository::Type:
-	Type_Impl | SimpleType | ComplexType;
+RepositoryView returns repository::Repository:
+	'repository' name=ID
+		(interfaces+=RepositoryInterface | components+=RepositoryComponent | components+=RepositoryComposite)*
+;
 
-Type_Impl returns repository::Type:
-	'Type'
-	'{'
-		'typeName' typeName=EString
-	'}';
+RepositoryInterface returns repository::Interface:
+	'interface' name=ID
+		(signatures+=InterfaceSignature)*
+;
 
-EString returns ecore::EString:
-	STRING | ID;
+InterfaceSignature returns repository::Signature:
+	returnType=[repository::Type] name=ID '(' (parameters+=InterfaceSignatureParameter ( ',' parameters+=InterfaceSignatureParameter)*)? ')'
+;
+
+InterfaceSignatureParameter returns repository::SignatureParameter:
+	type=[repository::ParameterType] name=ID
+;
+
+RepositoryComponent returns repository::Component:
+	'component' name=ID
+		('provides' providedInterfaces+=[repository::Interface])+
+		('requires' requiredInterfaces+=[repository::Interface])*
+		('behavior' behaviors+=Behavior)*
+;
+
+BlockStatement returns componentbehavior::BlockStatement:
+	{componentbehavior::BlockStatement}
+	'block' (statements+=BranchStatement | statements+=LoopStatement | statements+=InternalAction | statements+=ExternalAction)*
+;
+
+BranchStatement returns componentbehavior::BranchStatement:
+	{componentbehavior::BranchStatement}
+	'if'
+	 	ifStatements=BlockStatement?
+	'else'
+		elseStatements=BlockStatement?
+;
+
+LoopStatement returns componentbehavior::LoopStatement:
+	'for'
+		statements=BlockStatement
+;
+
+InternalAction returns componentbehavior::InternalAction:
+	{componentbehavior::InternalAction}
+	'demand'
+;
+
+ExternalAction returns componentbehavior::ExternalAction:
+	'external' service=[repository::Signature]
+;
+
+Behavior returns componentbehavior::BehaviorDescription:
+	signature=[repository::Signature]
+		statements=BlockStatement
+;
+
+RepositoryComposite returns assembly::CompositeComponent:
+	'composite' name=ID
+;
+
+AllocationView returns allocation::Allocation:
+	'allocation' name=ID
+;
+
+EnvironmentView returns environment::Environment:
+	'environment' name=ID
+;
 
 SimpleType returns repository::SimpleType:
-	'SimpleType'
-	'{'
-		'typeName' typeName=EString
-	'}';
+	name=ID;
 
 ComplexType returns repository::ComplexType:
-	'ComplexType'
-	'{'
-		'typeName' typeName=EString
-	'}';
+	name=ID;

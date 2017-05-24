@@ -1,8 +1,9 @@
-Modelcontainer{
-	types { 
-		Type
-		{
-		typeName asd
-	}
-	}
-}
+types
+	simple asd
+	complex dsads, ioewr3
+
+repository ABCRepository
+	interface ee
+		asd zulu()
+
+		

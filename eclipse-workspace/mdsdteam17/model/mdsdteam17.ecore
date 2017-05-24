@@ -215,7 +215,7 @@
           upperBound="-1" eType="#//repository/Interface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Type">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeName" lowerBound="1"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ParameterType" abstract="true" eSuperTypes="#//repository/Type"/>

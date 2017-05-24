@@ -126,7 +126,7 @@
             ecoreFeature="ecore:EReference mdsdteam17.ecore#//repository/Component/providedInterfaces"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//repository/Type">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//repository/Type/typeName"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//repository/Type/name"/>
       </genClasses>
       <genClasses image="false" ecoreClass="mdsdteam17.ecore#//repository/ParameterType"/>
       <genClasses ecoreClass="mdsdteam17.ecore#//repository/SimpleType"/>
