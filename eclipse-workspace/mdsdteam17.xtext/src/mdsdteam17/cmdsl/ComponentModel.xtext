@@ -10,12 +10,14 @@ import "platform:/resource/mdsdteam17/model/mdsdteam17.ecore#//environment" as e
 import "platform:/resource/mdsdteam17/model/mdsdteam17.ecore#//allocation" as allocation
 import "platform:/resource/mdsdteam17/model/mdsdteam17.ecore#//assembly" as assembly
 
+
 Modelcontainer returns Modelcontainer:
 	{Modelcontainer}
 	'types'
+	BEGIN
 		('simple' types+=SimpleType ( "," types+=SimpleType)* )*
 		('complex' types+=ComplexType ( "," types+=ComplexType)* )*
-	
+	END
 	(views+=View)*
 	;
 
@@ -25,12 +27,16 @@ View returns View:
 
 RepositoryView returns repository::Repository:
 	'repository' name=ID
-		(interfaces+=RepositoryInterface | components+=RepositoryComponent | components+=RepositoryComposite)*
+	BEGIN
+		(interfaces+=RepositoryInterface | components+=RepositoryComponent | components+=RepositoryComposite)+
+	END
 ;
 
 RepositoryInterface returns repository::Interface:
 	'interface' name=ID
-		(signatures+=InterfaceSignature)*
+	BEGIN
+		(signatures+=InterfaceSignature)+
+	END
 ;
 
 InterfaceSignature returns repository::Signature:
@@ -43,27 +49,34 @@ InterfaceSignatureParameter returns repository::SignatureParameter:
 
 RepositoryComponent returns repository::Component:
 	'component' name=ID
+	BEGIN
 		('provides' providedInterfaces+=[repository::Interface])+
 		('requires' requiredInterfaces+=[repository::Interface])*
 		('behavior' behaviors+=Behavior)*
+	END
 ;
 
 BlockStatement returns componentbehavior::BlockStatement:
-	{componentbehavior::BlockStatement}
-	'block' (statements+=BranchStatement | statements+=LoopStatement | statements+=InternalAction | statements+=ExternalAction)*
+	(statements+=BranchStatement | statements+=LoopStatement | statements+=InternalAction | statements+=ExternalAction)+
 ;
 
 BranchStatement returns componentbehavior::BranchStatement:
 	{componentbehavior::BranchStatement}
 	'if'
+	BEGIN
 	 	ifStatements=BlockStatement?
-	'else'
+	END
+	('else'
+	BEGIN
 		elseStatements=BlockStatement?
+	END)?
 ;
 
 LoopStatement returns componentbehavior::LoopStatement:
 	'for'
+	BEGIN
 		statements=BlockStatement
+	END
 ;
 
 InternalAction returns componentbehavior::InternalAction:
@@ -77,19 +90,73 @@ ExternalAction returns componentbehavior::ExternalAction:
 
 Behavior returns componentbehavior::BehaviorDescription:
 	signature=[repository::Signature]
+	BEGIN
 		statements=BlockStatement
+	END
 ;
 
 RepositoryComposite returns assembly::CompositeComponent:
 	'composite' name=ID
+	BEGIN
+		(elements+=AssemblyContext)+
+		(delegationconnectors+=ProvidedDelegationConnector)+
+		(delegationconnectors+=RequiredDelegationConnector)+
+		(assemblyconnectors+=AssemblyConnector)+
+	END
+;
+
+AssemblyConnector returns assembly::AssemblyConnector:
+	'connects' interface=[repository::Interface] 'from' provider=[assembly::AssemblyContext] 'to' consumer=[assembly::AssemblyContext]
+;
+
+ProvidedDelegationConnector returns assembly::DelegationConnector:
+	delegationType=ProvidedDelegationType interface=[repository::Interface] 'delegated' 'to' assemblyContext=[assembly::AssemblyContext]
+;
+
+RequiredDelegationConnector returns assembly::DelegationConnector:
+	delegationType=RequiredDelegationType interface=[repository::Interface] 'delegated' 'from' assemblyContext=[assembly::AssemblyContext]
+;
+
+enum ProvidedDelegationType returns assembly::DelegationType:
+	Provided = "provides"
+;
+
+enum RequiredDelegationType returns assembly::DelegationType:
+	Required = "requires"
+;
+
+AssemblyContext returns assembly::AssemblyContext:
+	'contains' component=[repository::Component] ('as' name=ID)?
 ;
 
 AllocationView returns allocation::Allocation:
-	'allocation' name=ID
+	'allocation' name=ID 'of' compositecomponent=[assembly::CompositeComponent] 'on' environment=[environment::Environment]
+	BEGIN
+		(allocationcontexts+=AllocationContext)+
+	END
+;
+
+AllocationContext returns allocation::AllocationContext:
+	'allocate' topLevelContext=[assembly::AssemblyContext] 'on' container=[environment::Container]
 ;
 
 EnvironmentView returns environment::Environment:
 	'environment' name=ID
+	BEGIN
+		(containers+=Container)+
+		(containerLinks+=ContainerLink)*
+	END
+;
+
+ContainerLink returns environment::Link:
+	'link' name=ID 'links' 
+	BEGIN
+		(containers+=[environment::Container])*
+	END
+;
+
+Container returns environment::Container:
+	'container' name=ID
 ;
 
 SimpleType returns repository::SimpleType:
@@ -97,3 +164,8 @@ SimpleType returns repository::SimpleType:
 
 ComplexType returns repository::ComplexType:
 	name=ID;
+
+// The following synthetic tokens are used for the indentation-aware blocks
+terminal BEGIN: 'synthetic:BEGIN';  // increase indentation
+terminal END: 'synthetic:END';      // decrease indentation
+      

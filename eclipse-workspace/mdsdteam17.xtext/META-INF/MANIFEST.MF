@@ -22,5 +22,6 @@ Export-Package: mdsdteam17.cmdsl.formatting,
  mdsdteam17.cmdsl.generator,
  mdsdteam17.cmdsl.services,
  mdsdteam17.cmdsl,
- mdsdteam17.cmdsl.validation
+ mdsdteam17.cmdsl.validation,
+ mdsdteam17.cmdsl.parser.antlr.lexer
 Import-Package: org.apache.log4j

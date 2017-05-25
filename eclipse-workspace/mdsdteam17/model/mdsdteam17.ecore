@@ -63,6 +63,8 @@
           eType="#//allocation/AllocationContext" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="compositecomponent" lowerBound="1"
           eType="#//assembly/CompositeComponent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="environment" lowerBound="1"
+          eType="#//environment/Environment"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AllocationContext">
       <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelContext" lowerBound="1"

@@ -1,9 +1,55 @@
-types
-	simple asd
-	complex dsads, ioewr3
-
-repository ABCRepository
-	interface ee
-		asd zulu()
-
+types 
+	simple asd, bb, ccc
+	complex i, f
+/* asdassd 
+ * Comment a
+ * */
+repository Repo1
+	// Interface 1
+	interface WebApi
+		asd Download()
+		bb Upload(i a)
 		
+	interface DB
+		asd Execute()
+	
+	component WebApi
+		provides WebApi
+		requires DB
+		behavior Download
+			if
+				demand
+				external Upload
+			else
+				for
+					if
+						external Download
+					else
+						demand
+
+environment Env1
+	container Server1
+	container Server2
+	link Network links
+		Server1
+		Server2
+		
+allocation Allocation of Comp12 on Env1
+	allocate WebApi1 on Server1
+	
+repository Repo2
+	interface WebApi2
+		asd Download()
+		bb Upload(i a)
+		
+	interface DB2
+		asd Execute()
+		
+	composite Comp12
+		contains WebApi2 as WebApi1
+		provides WebApi2 delegated to WebApi1
+		requires DB2 delegated from WebUi1
+
+
+
+

@@ -11,5 +11,6 @@ Require-Bundle: mdsdteam17.xtext,
  org.eclipse.xtext.xbase.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: mdsdteam17.cmdsl.ide.contentassist.antlr.internal,
- mdsdteam17.cmdsl.ide.contentassist.antlr
+ mdsdteam17.cmdsl.ide.contentassist.antlr,
+ mdsdteam17.cmdsl.ide.contentassist.antlr.lexer
 
