@@ -133,14 +133,14 @@ AssemblyContext returns assembly::AssemblyContext:
 ;
 
 AllocationView returns allocation::Allocation:
-	'allocation' name=ID 'of' compositecomponent=[assembly::CompositeComponent] 'on' environment=[environment::Environment]
+	'allocation' name=ID 'of' compositecomponent=[assembly::CompositeComponent|QualifiedName] 'on' environment=[environment::Environment]
 	BEGIN
 		(allocationcontexts+=AllocationContext)+
 	END
 ;
 
 AllocationContext returns allocation::AllocationContext:
-	'allocate' topLevelContext=[assembly::AssemblyContext] 'on' container=[environment::Container]
+	'allocate' topLevelContext=[assembly::AssemblyContext|QualifiedName] 'on' container=[environment::Container|QualifiedName]
 ;
 
 EnvironmentView returns environment::Environment:

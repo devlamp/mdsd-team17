@@ -1,0 +1,59 @@
+types 
+	simple void
+	
+repository MS
+	interface HTTP
+		void HTTPDownload()
+		void HTTPUpload()
+	interface Sound
+		void watermark()
+	interface MediaStore
+		void download()
+		void upload()
+	interface AudioDB
+		void queryDB()
+		void addFile()
+	
+	component WebGUI
+		provides HTTP
+		requires MediaStore
+	component MediaManager
+		provides MediaStore
+		requires Sound
+		requires AudioDB
+	component DBCache
+		provides AudioDB
+		requires AudioDB
+	component DigitalWatermarking
+		provides Sound
+	component PoolingAudioDB
+		provides AudioDB
+	
+	composite MediaStore
+		contains MediaManager as MediaManager
+		contains DigitalWatermarking as DigitalWatermarking
+		contains DBCache as DBCache
+		provides MediaStore delegated to MediaManager
+		requires AudioDB delegated from DBCache
+		connects Sound from DigitalWatermarking to MediaManager
+		connects AudioDB from DBCache to MediaManager
+	
+	composite System
+		contains MediaStore as MediaStore
+		contains WebGUI as WebGUI
+		contains PoolingAudioDB as PoolingAudioDB
+		provides HTTP delegated to WebGUI
+		connects MediaStore from MediaStore to WebGUI
+		connects AudioDB from PoolingAudioDB to MediaStore
+		
+environment Env1
+	container ApplicationServer
+	container DatabaseServer
+	link network links
+		ApplicationServer
+		DatabaseServer
+
+allocation deployedSystem of MS.System on Env1
+	allocate MS.System.MediaStore on Env1.ApplicationServer
+	allocate MS.System.WebGUI on Env1.ApplicationServer
+	allocate MS.System.PoolingAudioDB on Env1.DatabaseServer

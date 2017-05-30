@@ -64,6 +64,7 @@ repository Repo2
 		provides WebApi2
 		requires DB2
 
-allocation Allocation of on Env1
+allocation alloc of Repo2.Comp12 on Env1
+	allocate Repo2.Comp12.WebApiComp1 on Env1.Server1
 
 
