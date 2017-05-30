@@ -33,14 +33,12 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
         <details key="DistinctContainers" value="&#xA;&#x9;&#x9;&#x9;containers->asSet()->size() = containers->size()"/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="containers" lowerBound="2"
-          upperBound="-1" eType="#//environment/Container" eOpposite="#//environment/Container/links"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="containers" lowerBound="2"
+          upperBound="-1" eType="#//environment/Container"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Container">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
-          eType="#//environment/Link" eOpposite="#//environment/Link/containers"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
@@ -57,7 +55,7 @@
         <details key="constraints" value="ComponentsAreAllocatedOnLinkedContainers"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-        <details key="ComponentsAreAllocatedOnLinkedContainers" value="&#xA;&#x9;&#x9;&#x9;compositecomponent.assemblyconnectors->forAll(assConnector | &#xA;&#x9;&#x9;&#x9;&#x9;/* They are both on the same container */&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container->asSet()->size() = 1&#xA;&#x9;&#x9;&#x9;&#x9;or&#xA;&#x9;&#x9;&#x9;&#x9;/* They are on different containers which are linked */&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container.links->exists(l1, l2 | l1 = l2)&#xA;&#x9;&#x9;&#x9;)"/>
+        <details key="ComponentsAreAllocatedOnLinkedContainers" value="&#xA;&#x9;&#x9;&#x9;compositecomponent.assemblyconnectors->forAll(assConnector | &#xA;&#x9;&#x9;&#x9;&#x9;/* They are both on the same container */&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container->asSet()->size() = 1&#xA;&#x9;&#x9;&#x9;&#x9;or&#xA;&#x9;&#x9;&#x9;&#x9;/* They are on different containers which are linked */&#xA;&#x9;&#x9;&#x9;&#x9;environment.containerLinks->exists(link | link.containers->includesAll(&#xA;&#x9;&#x9;&#x9;&#x9;allocationcontexts->select(x | &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;x.topLevelContext = assConnector.provider or x.topLevelContext = assConnector.consumer&#xA;&#x9;&#x9;&#x9;&#x9;).container))&#xA;&#x9;&#x9;&#x9;)"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="allocationcontexts" upperBound="-1"
           eType="#//allocation/AllocationContext" containment="true"/>
@@ -142,6 +140,11 @@
   </eSubpackages>
   <eSubpackages name="componentbehavior" nsURI="http://www.example.org/mdsdteam17/componentbehavior"
       nsPrefix="componentbehavior">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="ExternalAction" eSuperTypes="#//componentbehavior/Statement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="service" lowerBound="1"
@@ -160,6 +163,12 @@
           eType="#//componentbehavior/Statement" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BranchStatement" eSuperTypes="#//componentbehavior/Statement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="ChanceBetweenOneAndZero"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="ChanceBetweenOneAndZero" value="&#xA;&#x9;&#x9;&#x9;&#x9; chance > 0.0 and chance &lt; 1.0"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="chance" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ifStatements" eType="#//componentbehavior/BlockStatement"
           containment="true"/>

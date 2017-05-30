@@ -19,9 +19,9 @@ repository Repo1
 		behavior Download
 			if
 				demand
-				external Upload
+				external Download
 			else
-				for
+				for 
 					if
 						external Download
 					else
@@ -35,7 +35,7 @@ environment Env1
 		Server2
 		
 allocation Allocation of Comp12 on Env1
-	allocate WebApi1 on Server1
+	allocate WebApiComp1 on Server1
 	
 repository Repo2
 	interface WebApi2
@@ -45,10 +45,18 @@ repository Repo2
 	interface DB2
 		asd Execute()
 		
+	component WebApiComp
+		provides WebApi2
+		requires DB2
+		
 	composite Comp12
-		contains WebApi2 as WebApi1
-		provides WebApi2 delegated to WebApi1
-		requires DB2 delegated from WebUi1
+		contains WebApiComp as WebApiComp1
+		provides WebApi2 delegated to WebApiComp1
+		requires DB2 delegated from WebApiComp1
+
+	component WebApiComp2
+		provides WebApi2
+		requires DB2
 
 
 

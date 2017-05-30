@@ -20,13 +20,11 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mdsdteam17.ecore#//environment/Environment/containerLinks"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//environment/Link">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//environment/Link/name"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference mdsdteam17.ecore#//environment/Link/containers"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//environment/Link/name"/>
       </genClasses>
       <genClasses ecoreClass="mdsdteam17.ecore#//environment/Container">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference mdsdteam17.ecore#//environment/Container/links"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mdsdteam17.ecore#//environment/Container/name"/>
       </genClasses>
     </nestedGenPackages>
