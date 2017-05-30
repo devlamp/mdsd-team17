@@ -3,30 +3,40 @@
 SimpleTypes: int, double, string # /**/ // <!-- -->
 ComplexTypes: <C1>
 		
-Environmen: <Name>
-	Container: <Name>
-	Container: <Name>
-	Link <Link Name> links
+environment <Name>
+	container <Name>
+	link <Name> links
 		<ContainerName1>
-		<ContainerName2>
-		<ContainerName3>
+		…
 	
-Repository: <Name>
-	Interface: <Name>
-		- void download(int: parameter1)
-		
-	Component: <Name>
+repository <Name>
+	interface <Name>
+		<type> <signaturename>(<type> <parameterName>, …)
+		…	
+
+	component <name>
+		require <requiredInterface>
+		provide <providedInterface>
+
+		<ProvidedInterface>.<signature>
+			for <iterations>
+				if <chance> 
+					demand <demand>
+				else
+					<RequiredInterface>.<signature>()
 	
 	
-Component: Component1
-	-( InterfaceName
-	-O 
-		- void download(int: parameter1)
-		
-		
-Component Behavior <RepoName>.<ComponentName>.<SignatureName>
-	for 12 
-		if 0.2
-			resource demand: 76.8
-		else
-			call <InterfaceName>.<SignatureName>
+assembly <Name>		
+	composite <Name>
+		contains <component1> as <assemblyContextName>
+		require <interface> using <context>
+		provide <interface> using <context>
+	
+		connect <interface> of <providingContext> to <requiringContext>
+
+
+allocation <Name> of <SystemCompositeComponent>
+	allocate <context> to <container>
+	…
+
+	

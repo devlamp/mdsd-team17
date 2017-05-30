@@ -62,7 +62,7 @@ BlockStatement returns componentbehavior::BlockStatement:
 
 BranchStatement returns componentbehavior::BranchStatement:
 	{componentbehavior::BranchStatement}
-	'if'
+	'if' chance=Double
 	BEGIN
 	 	ifStatements=BlockStatement?
 	END
@@ -73,7 +73,7 @@ BranchStatement returns componentbehavior::BranchStatement:
 ;
 
 LoopStatement returns componentbehavior::LoopStatement:
-	'for'
+	'for' iterations=Double
 	BEGIN
 		statements=BlockStatement
 	END
@@ -81,15 +81,18 @@ LoopStatement returns componentbehavior::LoopStatement:
 
 InternalAction returns componentbehavior::InternalAction:
 	{componentbehavior::InternalAction}
-	'demand'
+	'demand' resourceDemand=Double
 ;
 
+QualifiedName:
+    ID ('.' ID)*;
+   
 ExternalAction returns componentbehavior::ExternalAction:
-	'external' service=[repository::Signature]
+	'external' service=[repository::Signature|QualifiedName]
 ;
 
 Behavior returns componentbehavior::BehaviorDescription:
-	signature=[repository::Signature]
+	signature=[repository::Signature|QualifiedName]
 	BEGIN
 		statements=BlockStatement
 	END
@@ -164,6 +167,8 @@ SimpleType returns repository::SimpleType:
 
 ComplexType returns repository::ComplexType:
 	name=ID;
+	
+Double returns ecore::EDouble: INT '.' INT;
 
 // The following synthetic tokens are used for the indentation-aware blocks
 terminal BEGIN: 'synthetic:BEGIN';  // increase indentation
