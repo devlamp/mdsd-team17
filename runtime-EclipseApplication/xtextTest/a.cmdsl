@@ -10,22 +10,26 @@ repository Repo1
 		asd Download()
 		bb Upload(i a)
 		
+	interface WebApi2
+		asd Download()
+		bb Upload(i a)
+		
 	interface DB
 		asd Execute()
 	
 	component WebApi
 		provides WebApi
 		requires DB
-		behavior Download
-			if
-				demand
-				external Download
+		behavior WebApi.Download
+			if 0.2
+				demand 7.0
+				external DB.Execute
 			else
-				for 
-					if
-						external Download
+				for 3.0
+					if 0.7
+						external DB.Execute
 					else
-						demand
+						demand 8.9
 
 environment Env1
 	container Server1
@@ -34,9 +38,7 @@ environment Env1
 		Server1
 		Server2
 		
-allocation Allocation of Comp12 on Env1
-	allocate WebApiComp1 on Server1
-	
+
 repository Repo2
 	interface WebApi2
 		asd Download()
@@ -48,16 +50,20 @@ repository Repo2
 	component WebApiComp
 		provides WebApi2
 		requires DB2
+		requires WebApi2
+		
 		
 	composite Comp12
 		contains WebApiComp as WebApiComp1
+		contains WebApiComp as WebApiComp2
 		provides WebApi2 delegated to WebApiComp1
 		requires DB2 delegated from WebApiComp1
-
+		connects WebApi2 from WebApiComp1 to WebApiComp2
+		
 	component WebApiComp2
 		provides WebApi2
 		requires DB2
 
-
+allocation Allocation of on Env1
 
 

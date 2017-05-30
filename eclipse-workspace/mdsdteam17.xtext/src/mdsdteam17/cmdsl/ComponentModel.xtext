@@ -85,7 +85,7 @@ InternalAction returns componentbehavior::InternalAction:
 ;
 
 QualifiedName:
-    ID ('.' ID)*;
+    ID ('.' ID)+;
    
 ExternalAction returns componentbehavior::ExternalAction:
 	'external' service=[repository::Signature|QualifiedName]
@@ -103,7 +103,7 @@ RepositoryComposite returns assembly::CompositeComponent:
 	BEGIN
 		(elements+=AssemblyContext)+
 		(delegationconnectors+=ProvidedDelegationConnector)+
-		(delegationconnectors+=RequiredDelegationConnector)+
+		(delegationconnectors+=RequiredDelegationConnector)*
 		(assemblyconnectors+=AssemblyConnector)+
 	END
 ;
