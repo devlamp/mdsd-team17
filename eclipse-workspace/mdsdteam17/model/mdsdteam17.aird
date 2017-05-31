@@ -3,6 +3,8 @@
   <viewpoint:DAnalysis xmi:id="_WeQooC_0EeeQ75laZoscwA" selectedViews="_Wy5b4C_0EeeQ75laZoscwA" version="11.1.0.201608251200">
     <semanticResources>mdsdteam17.ecore</semanticResources>
     <semanticResources>mdsdteam17.genmodel</semanticResources>
+    <semanticResources>pcm.ecore</semanticResources>
+    <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_Wy5b4C_0EeeQ75laZoscwA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_aFdlsDNeEeeL7rcl69UKOg" name="mdsdteam17 class diagram" representation="_W8e1sC_0EeeQ75laZoscwA">
