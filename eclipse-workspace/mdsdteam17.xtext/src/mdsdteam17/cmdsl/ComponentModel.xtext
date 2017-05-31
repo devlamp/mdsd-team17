@@ -98,6 +98,7 @@ Behavior returns componentbehavior::BehaviorDescription:
 	END
 ;
 
+// The generated java file for the CompositeComponent overrides the getProvided and getRequired methods.
 RepositoryComposite returns assembly::CompositeComponent:
 	'composite' name=ID
 	BEGIN

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<mdsdteam17:Modelcontainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:allocation="http://www.example.org/mdsdteam17/allocation" xmlns:assembly="http://www.example.org/mdsdteam17/assembly" xmlns:environment="http://www.example.org/mdsdteam17/environment" xmlns:mdsdteam17="http://www.example.org/mdsdteam17" xmlns:repository="http://www.example.org/mdsdteam17/repository">
+  <views xsi:type="repository:Repository" name="MS">
+    <interfaces name="HTTP">
+      <signatures name="HTTPDownload" returnType="//@types.0"/>
+      <signatures name="HTTPUpload" returnType="//@types.0"/>
+    </interfaces>
+    <interfaces name="Sound">
+      <signatures name="watermark" returnType="//@types.0"/>
+    </interfaces>
+    <interfaces name="MediaStore">
+      <signatures name="download" returnType="//@types.0"/>
+      <signatures name="upload" returnType="//@types.0"/>
+    </interfaces>
+    <interfaces name="AudioDB">
+      <signatures name="queryDB" returnType="//@types.0"/>
+      <signatures name="addFile" returnType="//@types.0"/>
+    </interfaces>
+    <components name="WebGUI" requiredInterfaces="//@views.0/@interfaces.2" providedInterfaces="//@views.0/@interfaces.0"/>
+    <components name="MediaManager" requiredInterfaces="//@views.0/@interfaces.1 //@views.0/@interfaces.3" providedInterfaces="//@views.0/@interfaces.2"/>
+    <components name="DBCache" requiredInterfaces="//@views.0/@interfaces.3" providedInterfaces="//@views.0/@interfaces.3"/>
+    <components name="DigitalWatermarking" providedInterfaces="//@views.0/@interfaces.1"/>
+    <components name="PoolingAudioDB" providedInterfaces="//@views.0/@interfaces.3"/>
+    <components xsi:type="assembly:CompositeComponent" name="MediaStore">
+      <assemblyconnectors provider="//@views.0/@components.5/@elements.1" consumer="//@views.0/@components.5/@elements.0" interface="//@views.0/@interfaces.1"/>
+      <assemblyconnectors provider="//@views.0/@components.5/@elements.2" consumer="//@views.0/@components.5/@elements.0" interface="//@views.0/@interfaces.3"/>
+      <delegationconnectors interface="//@views.0/@interfaces.2" assemblyContext="//@views.0/@components.5/@elements.0"/>
+      <delegationconnectors interface="//@views.0/@interfaces.3" delegationType="Required" assemblyContext="//@views.0/@components.5/@elements.2"/>
+      <elements name="MediaManager" component="//@views.0/@components.1"/>
+      <elements name="DigitalWatermarking" component="//@views.0/@components.3"/>
+      <elements name="DBCache" component="//@views.0/@components.2"/>
+    </components>
+    <components xsi:type="assembly:CompositeComponent" name="System">
+      <assemblyconnectors provider="//@views.0/@components.6/@elements.0" consumer="//@views.0/@components.6/@elements.1" interface="//@views.0/@interfaces.2"/>
+      <assemblyconnectors provider="//@views.0/@components.6/@elements.2" consumer="//@views.0/@components.6/@elements.0" interface="//@views.0/@interfaces.3"/>
+      <delegationconnectors interface="//@views.0/@interfaces.0" assemblyContext="//@views.0/@components.6/@elements.1"/>
+      <elements name="MediaStore" component="//@views.0/@components.5"/>
+      <elements name="WebGUI" component="//@views.0/@components.0"/>
+      <elements name="PoolingAudioDB" component="//@views.0/@components.4"/>
+    </components>
+  </views>
+  <views xsi:type="environment:Environment" name="Env1">
+    <containers name="ApplicationServer"/>
+    <containers name="DatabaseServer"/>
+    <containerLinks name="network" containers="//@views.1/@containers.0 //@views.1/@containers.1"/>
+  </views>
+  <views xsi:type="allocation:Allocation" name="deployedSystem" compositecomponent="//@views.0/@components.6" environment="//@views.1">
+    <allocationcontexts topLevelContext="//@views.0/@components.6/@elements.0" container="//@views.1/@containers.0"/>
+    <allocationcontexts topLevelContext="//@views.0/@components.6/@elements.1" container="//@views.1/@containers.0"/>
+    <allocationcontexts topLevelContext="//@views.0/@components.6/@elements.2" container="//@views.1/@containers.1"/>
+  </views>
+  <types xsi:type="repository:SimpleType" name="void"/>
+</mdsdteam17:Modelcontainer>

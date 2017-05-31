@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import org.eclipse.emf.ecore.resource.ResourceSet
+import mdsdteam17.cmdsl.ComponentModelStandaloneSetup
 
 /**
  * Generates code from your model files on save.
@@ -16,10 +18,11 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class ComponentModelGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(typeof(Greeting))
-//				.map[name]
-//				.join(', '))
+		val injector = new ComponentModelStandaloneSetup().createInjectorAndDoEMFRegistration();
+		val resourceSet = injector.getInstance(typeof(ResourceSet));
+		
+		val xmiResource = resourceSet.createResource(fsa.getURI("ComponentModel.xmi"));
+		xmiResource.getContents().add(resource.getContents().get(0));
+		xmiResource.save(null);		
 	}
 }
