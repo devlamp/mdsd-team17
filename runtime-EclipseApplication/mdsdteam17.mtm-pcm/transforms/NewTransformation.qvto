@@ -1,0 +1,14 @@
+modeltype MDSDTEAM17 uses 'http://www.example.org/mdsdteam17';
+
+modeltype PCM uses 'http://palladiosimulator.org/PalladioComponentModel/5.2';
+
+transformation EnvironmentTransformation(in jkashdashd : MDSDTEAM17, out PCM);
+
+main() {
+ 	jkashdashd.rootObjects()[MDSDTEAM17::environment::Environment]->map model2RDBModel();
+}
+
+mapping MDSDTEAM17::environment::Environment::model2RDBModel() : PCM::resourceenvironment::ResourceEnvironment {
+	entityName := self.name
+}
+
