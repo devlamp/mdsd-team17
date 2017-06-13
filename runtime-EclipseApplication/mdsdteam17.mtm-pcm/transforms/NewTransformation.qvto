@@ -40,39 +40,25 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	entityName := self.name;
 	id := self.name;
 	connectedResourceContainers_LinkingResource := 
-		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM, PCM::resourceenvironment::ResourceContainer);
+		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM);
 	
+	/* The "new PCM::core::PCMRandomVariable();" call crashes the model validation of the root node.
 	var o = object PCM::resourceenvironment::CommunicationLinkResourceSpecification {
 		communicationLinkResourceType_CommunicationLinkResourceSpecification := new PCM::resourcetype::CommunicationLinkResourceType();
 		latency_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
 		throughput_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
 	};
 	communicationLinkResourceSpecifications_LinkingResource := o;
+	*/
 }
 
 mapping MDSDTEAM17::assembly::CompositeComponent::system2PCM() : PCM::system::System 
 {
-	var provRoles = self.providedInterfaces->collect(x | object PCM::repository::OperationProvidedRole {
-			var roleName = x.name + "_Role";
-			entityName := roleName;
-			id := roleName;
-			providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
-		} 
-	);
-	
-	var reqRoles = self.requiredInterfaces->collect(x | object PCM::repository::OperationRequiredRole {
-			var roleName = x.name + "_Role";
-			entityName := roleName;
-			id := roleName;
-			requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
-		} 
-	);
-	
 	entityName := self.name;
 	id := self.name;
-	providedRoles_InterfaceProvidingEntity := provRoles;
-	requiredRoles_InterfaceRequiringEntity := reqRoles;
-	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM();
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
+	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
 }
 
 //Repository View
@@ -81,57 +67,86 @@ mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Reposi
 	entityName := self.name;
 	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
 	interfaces__Repository := self.interfaces->map interface2PCM();
-	components__Repository := self.components->select(x | not x.isSystem())->map comp2PCM();
+	components__Repository := self.components->select(x | not x.isSystem())->map componentOrCompositionComponent2PCM();
 }
 
-mapping MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM() : PCM::core::composition::AssemblyContext {
-	var roleName = self.name + "_AssemblyContext";
+mapping MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM(component : MDSDTEAM17::repository::Component) : PCM::core::composition::AssemblyContext {
+	var roleName = self.name + "_Inside_" + component.name + "_AssemblyContext";
 	id := roleName;
 	entityName := roleName;
-	encapsulatedComponent__AssemblyContext := self.component.resolveoneIn(MDSDTEAM17::repository::Component::comp2PCM);
+	encapsulatedComponent__AssemblyContext := self.component.late resolveoneIn(MDSDTEAM17::repository::Component::componentOrCompositionComponent2PCM);
 }
 
-mapping MDSDTEAM17::assembly::AssemblyConnector::assemblyConnector2PCM() : PCM::core::composition::AssemblyConnector {
-	var roleName = "From_" + self.provider.name + "_To_" + self.consumer.name + "_Of_" + self.interface.name + "_AssemblyConnector";
+mapping MDSDTEAM17::assembly::AssemblyConnector::assemblyConnector2PCM(component : MDSDTEAM17::repository::Component) : PCM::core::composition::AssemblyConnector {
+	var roleName = "From_" + self.provider.name + "_To_" + self.consumer.name + "_Of_" + self.interface.name + "_Inside_" + component.name + "_AssemblyConnector";
 	id := roleName;
 	entityName := roleName;
-	requiringAssemblyContext_AssemblyConnector := self.consumer.resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
-	providingAssemblyContext_AssemblyConnector := self.consumer.resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	requiringAssemblyContext_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	providingAssemblyContext_AssemblyConnector := self.provider.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	requiredRole_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
+	providedRole_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::repository::Interface::providedInterface2PCMRole);
 }
 
-mapping MDSDTEAM17::repository::Component::comp2PCM() : PCM::repository::RepositoryComponent {
+mapping MDSDTEAM17::assembly::DelegationConnector::providedDelegationConnector2PCM(component : MDSDTEAM17::repository::Component) : PCM::core::composition::ProvidedDelegationConnector {
+	var roleName = "Delegating_" + self.delegationType.toString() + "_From_" + self.assemblyContext.name + "_Of_" + self.interface.name + "_Inside_" + component.name + "_DelegationConnector";
+	id := roleName;
+	entityName := roleName;
+	assemblyContext_ProvidedDelegationConnector := self.assemblyContext.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	innerProvidedRole_ProvidedDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::providedInterface2PCMRole);
+	outerProvidedRole_ProvidedDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::providedInterface2PCMRole);
+}
+
+mapping MDSDTEAM17::assembly::DelegationConnector::requiredDelegationConnector2PCM(component : MDSDTEAM17::repository::Component) : PCM::core::composition::RequiredDelegationConnector {
+	var roleName = "Delegating_" + self.delegationType.toString() + "_From_" + self.assemblyContext.name + "_Of_" + self.interface.name + "_Inside_" + component.name + "_DelegationConnector";
+	id := roleName;
+	entityName := roleName;
+	assemblyContext_RequiredDelegationConnector := self.assemblyContext.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	innerRequiredRole_RequiredDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
+	outerRequiredRole_RequiredDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
+}
+
+mapping MDSDTEAM17::repository::Component::componentOrCompositionComponent2PCM() : PCM::repository::RepositoryComponent {
 	init {
 		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
-			result := object PCM::repository::BasicComponent {};
+			result := self.map component2PCM();
 		} else {
-			var compositeComponent = self.oclAsType(MDSDTEAM17::assembly::CompositeComponent);
-			result := object PCM::repository::CompositeComponent {
-				assemblyContexts__ComposedStructure := compositeComponent.elements.map assemblyContext2PCM();
-				connectors__ComposedStructure := compositeComponent.assemblyconnectors.map assemblyConnector2PCM();
-			};		
+			result := self.oclAsType(MDSDTEAM17::assembly::CompositeComponent).map compositComponent2PCM();	
 		}
 	}
-	
-	var provRoles = self.providedInterfaces->collect(x | object PCM::repository::OperationProvidedRole {
-			var roleName = x.name + "_Role";
-			entityName := roleName;
-			id := roleName;
-			providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
-		} 
-	);
-	
-	var reqRoles = self.requiredInterfaces->collect(x | object PCM::repository::OperationRequiredRole {
-			var roleName = x.name + "_Role";
-			entityName := roleName;
-			id := roleName;
-			requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
-		} 
-	);
+}
+
+mapping MDSDTEAM17::repository::Component::component2PCM() : PCM::repository::BasicComponent {
+	entityName := self.name;
+	id := self.name;
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
+}
+
+mapping MDSDTEAM17::assembly::CompositeComponent::compositComponent2PCM() : PCM::repository::CompositeComponent {
+
+	var assConnectors = self.assemblyconnectors.map assemblyConnector2PCM(self);
+	var delConnectors = self.delegationconnectors.map providedDelegationConnector2PCM(self);
 	
 	entityName := self.name;
 	id := self.name;
-	providedRoles_InterfaceProvidingEntity := provRoles;
-	requiredRoles_InterfaceRequiringEntity := reqRoles;
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
+	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
+	connectors__ComposedStructure := assConnectors->union(delConnectors);
+}
+
+mapping MDSDTEAM17::repository::Interface::providedInterface2PCMRole(component: MDSDTEAM17::repository::Component) : PCM::repository::OperationProvidedRole {
+	var roleName = component.name + "_" + self.name + "_ProvidedRole";
+	entityName := roleName;
+	id := roleName;
+	providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+}
+
+mapping MDSDTEAM17::repository::Interface::requiredInterface2PCMRole(component: MDSDTEAM17::repository::Component) : PCM::repository::OperationRequiredRole {
+	var roleName = component.name + "_" + self.name + "_RequiredRole";
+	entityName := roleName;
+	id := roleName;
+	requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
 }
 
 //Interfaces, Signaturen und Parameter
@@ -140,7 +155,6 @@ mapping MDSDTEAM17::repository::Interface::interface2PCM() : PCM::repository::Op
 	entityName := roleName;
 	id := roleName;
 	signatures__OperationInterface := self.signatures->map signature2PCM();
-	
 }
 
 mapping MDSDTEAM17::repository::Signature::signature2PCM() : PCM::repository::OperationSignature {
@@ -162,5 +176,5 @@ mapping MDSDTEAM17::repository::Type::type2PCM() : PCM::repository::CompositeDat
 }
 
 query MDSDTEAM17::repository::Component::isSystem() : Boolean {
-	return self.name->toLower()->includes('system');
+	return self.name->toLower()->includes('system') and self.oclIsKindOf(MDSDTEAM17::assembly::CompositeComponent);
 }
