@@ -45,17 +45,32 @@ mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Reposi
 		->asSequence();
 	dataTypes__Repository := datatypes;
 	interfaces__Repository := self.interfaces->map interface2PCM(datatypes->asSet());
-	components__Repository := self.components->map comp2PCM(self);
+	components__Repository := self.components->map basicComp2PCM().asRepositoryComponent()
+		->union(self.components[PCM::repository::CompositeComponent]->map composite2PCM().asRepositoryComponent())->asSequence();
 }
 
 // Components
-mapping MDSDTEAM17::repository::Component::comp2PCM(in repository : MDSDTEAM17::repository::Repository) : PCM::repository::BasicComponent 
-	// Only components are mapped. Composite components have their own mapping.
+mapping MDSDTEAM17::repository::Component::basicComp2PCM() : PCM::repository::BasicComponent 
 	when { self.oclIsTypeOf(MDSDTEAM17::repository::Component) }
 {
 	entityName := self.name;
 	id := self.name;
-	repository__RepositoryComponent := repository.late resolveoneIn(MDSDTEAM17::repository::Repository::repo2PCM);
+}
+
+query PCM::repository::BasicComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
+	return self.oclAsType(PCM::repository::RepositoryComponent)
+}
+
+query PCM::repository::CompositeComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
+	return self.oclAsType(PCM::repository::RepositoryComponent)
+}
+
+// Composite Components
+mapping MDSDTEAM17::assembly::CompositeComponent::composite2PCM() : PCM::repository::CompositeComponent 
+	when { self.oclIsTypeOf(MDSDTEAM17::assembly::CompositeComponent) }
+{
+	entityName := self.name;
+	id := self.name;
 }
 
 //Interfaces, Signaturen und Parameter
