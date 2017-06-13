@@ -10,6 +10,15 @@ main() {
  	repository->map repo2PCM();
 }
 
+//Allocation View
+mapping MDSDTEAM17::allocation::Allocation::allocation2PCM() : PCM::allocation::Allocation {
+	
+}
+
+mapping MDSDTEAM17::allocation::AllocationContext::allocContext2PCM() : PCM::allocation::AllocationContext {
+	
+}
+
 //Environment View
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
 	entityName := self.name;
@@ -27,12 +36,12 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	id := self.name;
 	connectedResourceContainers_LinkingResource := 
 		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM, PCM::resourceenvironment::ResourceContainer);
+	
 	var o = object PCM::resourceenvironment::CommunicationLinkResourceSpecification {
 		communicationLinkResourceType_CommunicationLinkResourceSpecification := new PCM::resourcetype::CommunicationLinkResourceType();
 		latency_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
 		throughput_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
 	};
-	
 	communicationLinkResourceSpecifications_LinkingResource := o;
 }
 

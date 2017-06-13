@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="MDSDRepository">
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="MDSDRepository">
+  <components__Repository xsi:type="repository:BasicComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="abc" providedInterface__OperationProvidedRole="HTTP"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="def" requiredInterface__OperationRequiredRole="HTTP"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:CompositeComponent">
+    <assemblyContexts__ComposedStructure encapsulatedComponent__AssemblyContext="//@components__Repository.0"/>
+    <connectors__ComposedStructure xsi:type="composition:AssemblyConnector"/>
+    <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector"/>
+    <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="dfg"/>
+  </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="HTTP">
     <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void">
       <parameters__OperationSignature dataType__Parameter="//@dataTypes__Repository.0" parameterName="x"/>
