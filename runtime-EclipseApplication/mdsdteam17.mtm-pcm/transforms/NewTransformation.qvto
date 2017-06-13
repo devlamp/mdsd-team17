@@ -45,7 +45,6 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	communicationLinkResourceSpecifications_LinkingResource := o;
 }
 
-
 //Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
 	id := self.name;
@@ -54,13 +53,40 @@ mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Reposi
 		->union(MDSD.objects()[MDSDTEAM17::repository::Type]->select(x | x.name = "void")->map void2PCM())
 		->asSequence();
 	dataTypes__Repository := datatypes;
-	interfaces__Repository := MDSD.objects()[MDSDTEAM17::repository::Interface]->map interface2PCM(datatypes->asSet());
+	interfaces__Repository := self.interfaces->map interface2PCM(datatypes->asSet());
+	components__Repository := self.components->map basicComp2PCM().asRepositoryComponent()
+		->union(self.components[PCM::repository::CompositeComponent]->map composite2PCM().asRepositoryComponent())->asSequence();
+}
+
+// Components
+mapping MDSDTEAM17::repository::Component::basicComp2PCM() : PCM::repository::BasicComponent 
+	when { self.oclIsTypeOf(MDSDTEAM17::repository::Component) }
+{
+	entityName := self.name;
+	id := self.name;
+}
+
+query PCM::repository::BasicComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
+	return self.oclAsType(PCM::repository::RepositoryComponent)
+}
+
+query PCM::repository::CompositeComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
+	return self.oclAsType(PCM::repository::RepositoryComponent)
+}
+
+// Composite Components
+mapping MDSDTEAM17::assembly::CompositeComponent::composite2PCM() : PCM::repository::CompositeComponent 
+	when { self.oclIsTypeOf(MDSDTEAM17::assembly::CompositeComponent) }
+{
+	entityName := self.name;
+	id := self.name;
 }
 
 //Interfaces, Signaturen und Parameter
 mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationInterface {
 	id := self.name;
 	signatures__OperationInterface := self.signatures->map signature2PCM(datatypes);
+	
 }
 
 mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationSignature {
