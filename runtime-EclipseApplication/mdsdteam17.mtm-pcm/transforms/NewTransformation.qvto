@@ -5,7 +5,8 @@ modeltype PCM uses 'http://palladiosimulator.org/PalladioComponentModel/5.2';
 transformation EnvironmentTransformation(in MDSD : MDSDTEAM17, out PCM);
 
 main() {
- 	MDSD.rootObjects()[MDSDTEAM17::environment::Environment]->map env2PCM();
+	var asds = MDSD.objects()[MDSDTEAM17::environment::Environment];
+ 	asds->map env2PCM();
 }
 
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
