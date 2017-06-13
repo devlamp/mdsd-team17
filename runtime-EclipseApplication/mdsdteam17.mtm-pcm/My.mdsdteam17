@@ -3,6 +3,7 @@
   <views xsi:type="environment:Environment" name="Env1">
     <containers name="DatabaseServer"/>
     <containers name="ApplicationServer"/>
+    <containers name="Test"/>
     <containerLinks name="Network" containers="//@views.0/@containers.1 //@views.0/@containers.0"/>
   </views>
   <views xsi:type="repository:Repository" name="MDSDRepository">

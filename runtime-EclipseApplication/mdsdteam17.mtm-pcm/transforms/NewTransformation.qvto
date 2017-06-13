@@ -1,5 +1,4 @@
 modeltype MDSDTEAM17 uses 'http://www.example.org/mdsdteam17';
-
 modeltype PCM uses 'http://palladiosimulator.org/PalladioComponentModel/5.2';
 
 transformation EnvironmentTransformation(in MDSD : MDSDTEAM17, out PCM);
@@ -11,6 +10,7 @@ main() {
  	repository->map repo2PCM();
 }
 
+//Environment View
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
 	var containers = self.containers.map container2PCM();
 	entityName := self.name;
@@ -18,14 +18,41 @@ mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironme
 	linkingResources__ResourceEnvironment := self.containerLinks.map link2PCM(containers->asSet());
 }
 
+mapping MDSDTEAM17::environment::Container::container2PCM() : PCM::resourceenvironment::ResourceContainer {
+	entityName := self.name;
+	id := self.name;
+}
+
+mapping MDSDTEAM17::environment::Link::link2PCM(in containers : Set(PCM::resourceenvironment::ResourceContainer)) : PCM::resourceenvironment::LinkingResource {
+	entityName := self.name;
+	id := self.name;
+	connectedResourceContainers_LinkingResource := containers->select(x | self.containers.name->includes(x.entityName));
+}
+
+
+//Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
 	id := self.name;
-	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::SimpleType]->map simpleDT2PCM()
+	var datatypes := MDSD.objects()[MDSDTEAM17::repository::SimpleType]->map simpleDT2PCM()
 		->union(MDSD.objects()[MDSDTEAM17::repository::ComplexType]->map complexDT2PCM())
 		->union(MDSD.objects()[MDSDTEAM17::repository::Type]->select(x | x.name = "void")->map void2PCM())
 		->asSequence();
+	dataTypes__Repository := datatypes;
+	interfaces__Repository := MDSD.objects()[MDSDTEAM17::repository::Interface]->map interface2PCM(datatypes->asSet());
 }
 
+//Interfaces, Signaturen und Parameter
+mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM::repository::DataType)) : PCM::repository::OperationInterface {
+	id := self.name;
+	signatures__OperationInterface := self.signatures->map signature2PCM(datatypes);
+}
+
+mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::DataType)) : PCM::repository::OperationSignature {
+	id := self.name;
+	//returnType__OperationSignature := datatypes
+}
+
+//Datentypen
 mapping MDSDTEAM17::repository::Type::void2PCM() : PCM::repository::CompositeDataType {
 	id := "void";
 }
@@ -34,7 +61,7 @@ mapping MDSDTEAM17::repository::ComplexType::complexDT2PCM() : PCM::repository::
 	id := self.name;
 }
 
-mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::PrimitiveDataType {
+/*mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::PrimitiveDataType {
 	if (self.name = "int"){ 
 		type := PCM::repository::PrimitiveTypeEnum::INT;
 	}
@@ -56,15 +83,8 @@ mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::Pr
 	else if (self.name = "long"){ 
 		type := PCM::repository::PrimitiveTypeEnum::LONG;
 	}
-}
+}*/
 
-mapping MDSDTEAM17::environment::Container::container2PCM() : PCM::resourceenvironment::ResourceContainer {
-	entityName := self.name;
-	id := self.name;
-}
-
-mapping MDSDTEAM17::environment::Link::link2PCM(in containers : Set(PCM::resourceenvironment::ResourceContainer)) : PCM::resourceenvironment::LinkingResource {
-	entityName := self.name;
-	id := self.name;
-	connectedResourceContainers_LinkingResource := containers;
+mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::CompositeDataType {
+	id := self.name
 }
