@@ -12,10 +12,9 @@ main() {
 
 //Environment View
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
-	var containers = self.containers.map container2PCM();
 	entityName := self.name;
-	resourceContainer_ResourceEnvironment := containers;
-	linkingResources__ResourceEnvironment := self.containerLinks.map link2PCM(containers->asSet());
+	resourceContainer_ResourceEnvironment := self.containers.map container2PCM();
+	linkingResources__ResourceEnvironment := self.containerLinks.map link2PCM();
 }
 
 mapping MDSDTEAM17::environment::Container::container2PCM() : PCM::resourceenvironment::ResourceContainer {
@@ -23,10 +22,11 @@ mapping MDSDTEAM17::environment::Container::container2PCM() : PCM::resourceenvir
 	id := self.name;
 }
 
-mapping MDSDTEAM17::environment::Link::link2PCM(in containers : Set(PCM::resourceenvironment::ResourceContainer)) : PCM::resourceenvironment::LinkingResource {
+mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::LinkingResource {
 	entityName := self.name;
 	id := self.name;
-	connectedResourceContainers_LinkingResource := containers->select(x | self.containers.name->includes(x.entityName));
+	connectedResourceContainers_LinkingResource := 
+		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM, PCM::resourceenvironment::ResourceContainer);
 }
 
 
