@@ -12,11 +12,12 @@ main() {
 
 //Allocation View
 mapping MDSDTEAM17::allocation::Allocation::allocation2PCM() : PCM::allocation::Allocation {
-	
+	id := self.name;
+	entityName := self.name;
+	//allocationContexts_Allocation := self.allocationcontexts.map allocContext2PCM();
 }
 
 mapping MDSDTEAM17::allocation::AllocationContext::allocContext2PCM() : PCM::allocation::AllocationContext {
-	
 }
 
 //Environment View
