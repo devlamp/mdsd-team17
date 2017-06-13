@@ -6,8 +6,12 @@ transformation EnvironmentTransformation(in MDSD : MDSDTEAM17, out PCM);
 main() {
 	var asds = MDSD.objects()[MDSDTEAM17::environment::Environment];
  	asds->map env2PCM();
+ 	
  	var repository = MDSD.objects()[MDSDTEAM17::repository::Repository];
  	repository->map repo2PCM();
+ 	
+ 	var systems = MDSD.objects()[MDSDTEAM17::assembly::CompositeComponent]->select(x | x.isSystem());
+ 	systems->map system2PCM();
 }
 
 //Allocation View
@@ -46,21 +50,65 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	communicationLinkResourceSpecifications_LinkingResource := o;
 }
 
+mapping MDSDTEAM17::assembly::CompositeComponent::system2PCM() : PCM::system::System 
+{
+	var provRoles = self.providedInterfaces->collect(x | object PCM::repository::OperationProvidedRole {
+			var roleName = x.name + "_Role";
+			entityName := roleName;
+			id := roleName;
+			providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+		} 
+	);
+	
+	var reqRoles = self.requiredInterfaces->collect(x | object PCM::repository::OperationRequiredRole {
+			var roleName = x.name + "_Role";
+			entityName := roleName;
+			id := roleName;
+			requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+		} 
+	);
+	
+	entityName := self.name;
+	id := self.name;
+	providedRoles_InterfaceProvidingEntity := provRoles;
+	requiredRoles_InterfaceRequiringEntity := reqRoles;
+	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM();
+}
+
 //Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
 	id := self.name;
 	entityName := self.name;
 	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
 	interfaces__Repository := self.interfaces->map interface2PCM();
-	components__Repository := self.components->map comp22PCM();
+	components__Repository := self.components->select(x | not x.isSystem())->map comp2PCM();
 }
 
-mapping MDSDTEAM17::repository::Component::comp22PCM() : PCM::repository::RepositoryComponent {
+mapping MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM() : PCM::core::composition::AssemblyContext {
+	var roleName = self.name + "_AssemblyContext";
+	id := roleName;
+	entityName := roleName;
+	encapsulatedComponent__AssemblyContext := self.component.resolveoneIn(MDSDTEAM17::repository::Component::comp2PCM);
+}
+
+mapping MDSDTEAM17::assembly::AssemblyConnector::assemblyConnector2PCM() : PCM::core::composition::AssemblyConnector {
+	var roleName = "From_" + self.provider.name + "_To_" + self.consumer.name + "_Of_" + self.interface.name + "_AssemblyConnector";
+	id := roleName;
+	entityName := roleName;
+	requiringAssemblyContext_AssemblyConnector := self.consumer.resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	providingAssemblyContext_AssemblyConnector := self.consumer.resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+}
+
+mapping MDSDTEAM17::repository::Component::comp2PCM() : PCM::repository::RepositoryComponent {
 	init {
 		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
 			result := object PCM::repository::BasicComponent {};
 		} else {
-			result := object PCM::repository::CompositeComponent {};		
+			var compositeComponent = self.oclAsType(MDSDTEAM17::assembly::CompositeComponent);
+			result := object PCM::repository::CompositeComponent {
+				assemblyContexts__ComposedStructure := compositeComponent.elements.map assemblyContext2PCM();
+				connectors__ComposedStructure := compositeComponent.assemblyconnectors.map assemblyConnector2PCM();
+			};		
 		}
 	}
 	
@@ -111,4 +159,8 @@ mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM() : PCM::repos
 mapping MDSDTEAM17::repository::Type::type2PCM() : PCM::repository::CompositeDataType {
 	id := self.name;
 	entityName := self.name;
+}
+
+query MDSDTEAM17::repository::Component::isSystem() : Boolean {
+	return self.name->toLower()->includes('system');
 }
