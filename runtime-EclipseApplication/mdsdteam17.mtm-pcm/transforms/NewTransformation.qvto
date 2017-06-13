@@ -42,7 +42,7 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	connectedResourceContainers_LinkingResource := 
 		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM);
 	
-	/* The "new PCM::core::PCMRandomVariable();" call crashes the model validation of the root node.
+	/* The "new PCM::core::PCMRandomVariable();" call crashes the model validation of the root node. 
 	var o = object PCM::resourceenvironment::CommunicationLinkResourceSpecification {
 		communicationLinkResourceType_CommunicationLinkResourceSpecification := new PCM::resourcetype::CommunicationLinkResourceType();
 		latency_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
@@ -83,8 +83,8 @@ mapping MDSDTEAM17::assembly::AssemblyConnector::assemblyConnector2PCM(component
 	entityName := roleName;
 	requiringAssemblyContext_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
 	providingAssemblyContext_AssemblyConnector := self.provider.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
-	requiredRole_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
-	providedRole_AssemblyConnector := self.consumer.late resolveoneIn(MDSDTEAM17::repository::Interface::providedInterface2PCMRole);
+	requiredRole_AssemblyConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
+	providedRole_AssemblyConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::providedInterface2PCMRole);
 }
 
 mapping MDSDTEAM17::assembly::DelegationConnector::providedDelegationConnector2PCM(component : MDSDTEAM17::repository::Component) : PCM::core::composition::ProvidedDelegationConnector {
