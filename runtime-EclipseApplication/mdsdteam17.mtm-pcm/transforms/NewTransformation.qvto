@@ -45,8 +45,17 @@ mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Reposi
 		->asSequence();
 	dataTypes__Repository := datatypes;
 	interfaces__Repository := self.interfaces->map interface2PCM(datatypes->asSet());
-	components__Repository := self.components->map basicComp2PCM().asRepositoryComponent()
-		->union(self.components[PCM::repository::CompositeComponent]->map composite2PCM().asRepositoryComponent())->asSequence();
+	components__Repository := self.components->map comp2PCM();
+}
+
+mapping MDSDTEAM17::repository::Component::comp2PCM() : PCM::repository::RepositoryComponent {
+	init {
+		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
+			result := self.map basicComp2PCM();
+		} else {
+			result := self.oclAsType(MDSDTEAM17::assembly::CompositeComponent).map composite2PCM();
+		}
+	}
 }
 
 // Components
