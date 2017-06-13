@@ -48,12 +48,8 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 //Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
 	id := self.name;
-	var datatypes := MDSD.objects()[MDSDTEAM17::repository::SimpleType]->map simpleDT2PCM()
-		->union(MDSD.objects()[MDSDTEAM17::repository::ComplexType]->map complexDT2PCM())
-		->union(MDSD.objects()[MDSDTEAM17::repository::Type]->select(x | x.name = "void")->map void2PCM())
-		->asSequence();
-	dataTypes__Repository := datatypes;
-	interfaces__Repository := self.interfaces->map interface2PCM(datatypes->asSet());
+	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
+	interfaces__Repository := self.interfaces->map interface2PCM();
 	components__Repository := self.components->map comp2PCM();
 }
 
@@ -73,14 +69,9 @@ mapping MDSDTEAM17::repository::Component::basicComp2PCM() : PCM::repository::Ba
 {
 	entityName := self.name;
 	id := self.name;
-}
-
-query PCM::repository::BasicComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
-	return self.oclAsType(PCM::repository::RepositoryComponent)
-}
-
-query PCM::repository::CompositeComponent::asRepositoryComponent() : PCM::repository::RepositoryComponent {
-	return self.oclAsType(PCM::repository::RepositoryComponent)
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces->map interface2ProvidedRole();
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces->map interface2RequiredRole();
+	
 }
 
 // Composite Components
@@ -89,35 +80,42 @@ mapping MDSDTEAM17::assembly::CompositeComponent::composite2PCM() : PCM::reposit
 {
 	entityName := self.name;
 	id := self.name;
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces->map interface2ProvidedRole();
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces->map interface2RequiredRole();
+}
+
+//Roles
+mapping MDSDTEAM17::repository::Interface::interface2ProvidedRole() : PCM::repository::OperationProvidedRole {
+	entityName := self.name;
+	id := self.name + "_Role";
+	providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+}
+
+mapping MDSDTEAM17::repository::Interface::interface2RequiredRole() : PCM::repository::OperationRequiredRole {
+	entityName := self.name;
+	id := self.name + "_Role";
+	requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
 }
 
 //Interfaces, Signaturen und Parameter
-mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationInterface {
-	id := self.name;
-	signatures__OperationInterface := self.signatures->map signature2PCM(datatypes);
+mapping MDSDTEAM17::repository::Interface::interface2PCM() : PCM::repository::OperationInterface {
+	id := "I" + self.name;
+	signatures__OperationInterface := self.signatures->map signature2PCM();
 	
 }
 
-mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationSignature {
+mapping MDSDTEAM17::repository::Signature::signature2PCM() : PCM::repository::OperationSignature {
 	id := self.name;
-	returnType__OperationSignature := datatypes->any(x | x.id = self.returnType.name);
-	parameters__OperationSignature := self.parameters->map parameter2PCM(datatypes->reject(x | x.id = "void"));
+	returnType__OperationSignature := self.returnType.resolveoneIn(MDSDTEAM17::repository::Type::type2PCM, PCM::repository::DataType);
+	parameters__OperationSignature := self.parameters->map parameter2PCM();
 }
 
-mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::Parameter {
+mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM() : PCM::repository::Parameter {
 	parameterName := self.name;
-	dataType__Parameter := datatypes->any(x | x.id = self.type.name);
+	dataType__Parameter := self.type.resolveoneIn(MDSDTEAM17::repository::Type::type2PCM, PCM::repository::DataType);
 }
 
 //Datentypen
-mapping MDSDTEAM17::repository::Type::void2PCM() : PCM::repository::CompositeDataType {
-	id := "void";
-}
-
-mapping MDSDTEAM17::repository::ComplexType::complexDT2PCM() : PCM::repository::CompositeDataType {
+mapping MDSDTEAM17::repository::Type::type2PCM() : PCM::repository::CompositeDataType {
 	id := self.name;
-}
-
-mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::CompositeDataType {
-	id := self.name
 }
