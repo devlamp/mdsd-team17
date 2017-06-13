@@ -7,8 +7,50 @@ transformation EnvironmentTransformation(in MDSD : MDSDTEAM17, out PCM);
 main() {
 	var asds = MDSD.objects()[MDSDTEAM17::environment::Environment];
  	asds->map env2PCM();
+ 	var repository = MDSD.objects()[MDSDTEAM17::repository::Repository];
+ 	repository->map repo2PCM();
 }
 
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
 	entityName := self.name;
+}
+
+mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
+	id := self.name;
+	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::SimpleType]->map simpleDT2PCM()
+		->union(MDSD.objects()[MDSDTEAM17::repository::ComplexType]->map complexDT2PCM())
+		->union(MDSD.objects()[MDSDTEAM17::repository::Type]->select(x | x.name = "void")->map void2PCM())
+		->asSequence();
+}
+
+mapping MDSDTEAM17::repository::Type::void2PCM() : PCM::repository::CompositeDataType {
+	id := "void";
+}
+
+mapping MDSDTEAM17::repository::ComplexType::complexDT2PCM() : PCM::repository::CompositeDataType {
+	id := self.name;
+}
+
+mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::PrimitiveDataType {
+	if (self.name = "int"){ 
+		type := PCM::repository::PrimitiveTypeEnum::INT;
+	}
+	else if(self.name = "string"){
+		type := PCM::repository::PrimitiveTypeEnum::STRING;
+	}
+	else if(self.name = "bool"){
+		type := PCM::repository::PrimitiveTypeEnum::BOOL;
+	}
+	else if (self.name = "double"){ 
+		type := PCM::repository::PrimitiveTypeEnum::DOUBLE;
+	}
+	else if (self.name = "char"){ 
+		type := PCM::repository::PrimitiveTypeEnum::CHAR;
+	}
+	else if (self.name = "byte"){ 
+		type := PCM::repository::PrimitiveTypeEnum::BYTE;
+	}
+	else if (self.name = "long"){ 
+		type := PCM::repository::PrimitiveTypeEnum::LONG;
+	}
 }

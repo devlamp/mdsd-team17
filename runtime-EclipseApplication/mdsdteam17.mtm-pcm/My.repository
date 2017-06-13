@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="MDSDRepository">
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="HTTP">
+    <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void">
+      <parameters__OperationSignature dataType__Parameter="//@dataTypes__Repository.0" parameterName="x"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:PrimitiveDataType"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="CompDT"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="void"/>
+</repository:Repository>

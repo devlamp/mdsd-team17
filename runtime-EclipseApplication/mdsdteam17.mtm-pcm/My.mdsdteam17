@@ -49,5 +49,7 @@
     <allocationcontexts topLevelContext="//@views.1/@components.6/@elements.1" container="//@views.0/@containers.1"/>
     <allocationcontexts topLevelContext="//@views.1/@components.6/@elements.2" container="//@views.0/@containers.0"/>
   </views>
-  <types xsi:type="repository:SimpleType" name="void"/>
+  <types name="void"/>
+  <types xsi:type="repository:SimpleType" name="int"/>
+  <types xsi:type="repository:ComplexType" name="CompA"/>
 </mdsdteam17:Modelcontainer>
