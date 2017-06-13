@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xsi:schemaLocation="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//repository http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourceenvironment">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:resourcetype="http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2" xsi:schemaLocation="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//repository http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourceenvironment http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourcetype">
   <resourceenvironment:ResourceEnvironment entityName="Env1">
-    <linkingResources__ResourceEnvironment id="Network" entityName="Network" connectedResourceContainers_LinkingResource="DatabaseServer ApplicationServer"/>
+    <linkingResources__ResourceEnvironment id="Network" entityName="Network" connectedResourceContainers_LinkingResource="DatabaseServer ApplicationServer">
+      <communicationLinkResourceSpecifications_LinkingResource communicationLinkResourceType_CommunicationLinkResourceSpecification="/1">
+        <latency_CommunicationLinkResourceSpecification/>
+        <throughput_CommunicationLinkResourceSpecification/>
+      </communicationLinkResourceSpecifications_LinkingResource>
+    </linkingResources__ResourceEnvironment>
     <resourceContainer_ResourceEnvironment id="DatabaseServer" entityName="DatabaseServer"/>
     <resourceContainer_ResourceEnvironment id="Test" entityName="Test"/>
     <resourceContainer_ResourceEnvironment id="ApplicationServer" entityName="ApplicationServer"/>
   </resourceenvironment:ResourceEnvironment>
+  <resourcetype:CommunicationLinkResourceType/>
   <repository:Repository id="MDSDRepository">
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="AudioDB">
+      <signatures__OperationInterface id="addFile" returnType__OperationSignature="void"/>
+      <signatures__OperationInterface id="queryDB" returnType__OperationSignature="void"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="Sound">
+      <signatures__OperationInterface id="watermark" returnType__OperationSignature="void">
+        <parameters__OperationSignature dataType__Parameter="CompA" parameterName="Test"/>
+      </signatures__OperationInterface>
+    </interfaces__Repository>
     <interfaces__Repository xsi:type="repository:OperationInterface" id="MediaStore">
       <signatures__OperationInterface id="download" returnType__OperationSignature="void"/>
       <signatures__OperationInterface id="upload" returnType__OperationSignature="void"/>
@@ -15,17 +30,8 @@
       <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void"/>
       <signatures__OperationInterface id="HTTPDownload" returnType__OperationSignature="void"/>
     </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="AudioDB">
-      <signatures__OperationInterface id="queryDB" returnType__OperationSignature="void"/>
-      <signatures__OperationInterface id="addFile" returnType__OperationSignature="void"/>
-    </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="Sound">
-      <signatures__OperationInterface id="watermark" returnType__OperationSignature="void">
-        <parameters__OperationSignature parameterName="Test"/>
-      </signatures__OperationInterface>
-    </interfaces__Repository>
-    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="int"/>
     <dataTypes__Repository xsi:type="repository:CompositeDataType" id="void"/>
     <dataTypes__Repository xsi:type="repository:CompositeDataType" id="CompA"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="int"/>
   </repository:Repository>
 </xmi:XMI>
