@@ -13,22 +13,42 @@
   </resourceenvironment:ResourceEnvironment>
   <resourcetype:CommunicationLinkResourceType/>
   <repository:Repository id="MDSDRepository">
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="Sound">
-      <signatures__OperationInterface id="watermark" returnType__OperationSignature="void">
-        <parameters__OperationSignature dataType__Parameter="CompA" parameterName="Test"/>
-      </signatures__OperationInterface>
+    <components__Repository xsi:type="repository:CompositeComponent" id="MediaStore" entityName="MediaStore">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="MediaStore_Role" entityName="MediaStore" providedInterface__OperationProvidedRole="IMediaStore"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="AudioDB_Role" entityName="AudioDB" requiredInterface__OperationRequiredRole="IAudioDB"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="DigitalWatermarking" entityName="DigitalWatermarking">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Sound_Role" entityName="Sound" providedInterface__OperationProvidedRole="ISound"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:CompositeComponent" id="System" entityName="System">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="HTTP_Role" entityName="HTTP" providedInterface__OperationProvidedRole="IHTTP"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="MediaManager" entityName="MediaManager">
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="Sound_Role" entityName="Sound" requiredInterface__OperationRequiredRole="ISound"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="WebGUI" entityName="WebGUI">
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MediaStore_Role" entityName="MediaStore" requiredInterface__OperationRequiredRole="IMediaStore"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="PoolingAudioDB" entityName="PoolingAudioDB">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="AudioDB_Role" entityName="AudioDB" providedInterface__OperationProvidedRole="IAudioDB"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="DBCache" entityName="DBCache"/>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IHTTP">
+      <signatures__OperationInterface id="HTTPDownload" returnType__OperationSignature="void"/>
+      <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void"/>
     </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="AudioDB">
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IAudioDB">
       <signatures__OperationInterface id="addFile" returnType__OperationSignature="void"/>
       <signatures__OperationInterface id="queryDB" returnType__OperationSignature="void"/>
     </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="MediaStore">
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IMediaStore">
       <signatures__OperationInterface id="download" returnType__OperationSignature="void"/>
       <signatures__OperationInterface id="upload" returnType__OperationSignature="void"/>
     </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="HTTP">
-      <signatures__OperationInterface id="HTTPDownload" returnType__OperationSignature="void"/>
-      <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void"/>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="ISound">
+      <signatures__OperationInterface id="watermark" returnType__OperationSignature="void">
+        <parameters__OperationSignature dataType__Parameter="CompA" parameterName="Test"/>
+      </signatures__OperationInterface>
     </interfaces__Repository>
     <dataTypes__Repository xsi:type="repository:CompositeDataType" id="void"/>
     <dataTypes__Repository xsi:type="repository:CompositeDataType" id="CompA"/>
