@@ -49,64 +49,55 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 //Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
 	id := self.name;
+	entityName := self.name;
 	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
 	interfaces__Repository := self.interfaces->map interface2PCM();
-	components__Repository := self.components->map comp2PCM();
+	components__Repository := self.components->map comp22PCM();
 }
 
-mapping MDSDTEAM17::repository::Component::comp2PCM() : PCM::repository::RepositoryComponent {
+mapping MDSDTEAM17::repository::Component::comp22PCM() : PCM::repository::RepositoryComponent {
 	init {
 		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
-			result := self.map basicComp2PCM();
+			result := object PCM::repository::BasicComponent {};
 		} else {
-			result := self.oclAsType(MDSDTEAM17::assembly::CompositeComponent).map composite2PCM();
+			result := object PCM::repository::CompositeComponent {};		
 		}
 	}
-}
-
-// Components
-mapping MDSDTEAM17::repository::Component::basicComp2PCM() : PCM::repository::BasicComponent 
-	when { self.oclIsTypeOf(MDSDTEAM17::repository::Component) }
-{
-	entityName := self.name;
-	id := self.name;
-	providedRoles_InterfaceProvidingEntity := self.providedInterfaces->map interface2ProvidedRole();
-	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces->map interface2RequiredRole();
 	
-}
-
-// Composite Components
-mapping MDSDTEAM17::assembly::CompositeComponent::composite2PCM() : PCM::repository::CompositeComponent 
-	when { self.oclIsTypeOf(MDSDTEAM17::assembly::CompositeComponent) }
-{
+	var provRoles = self.providedInterfaces->collect(x | object PCM::repository::OperationProvidedRole {
+			var roleName = x.name + "_Role";
+			entityName := roleName;
+			id := roleName;
+			providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+		} 
+	);
+	
+	var reqRoles = self.requiredInterfaces->collect(x | object PCM::repository::OperationRequiredRole {
+			var roleName = x.name + "_Role";
+			entityName := roleName;
+			id := roleName;
+			requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+		} 
+	);
+	
 	entityName := self.name;
 	id := self.name;
-	providedRoles_InterfaceProvidingEntity := self.providedInterfaces->map interface2ProvidedRole();
-	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces->map interface2RequiredRole();
-}
-
-//Roles
-mapping MDSDTEAM17::repository::Interface::interface2ProvidedRole() : PCM::repository::OperationProvidedRole {
-	entityName := self.name;
-	id := self.name + "_Role";
-	providedInterface__OperationProvidedRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
-}
-
-mapping MDSDTEAM17::repository::Interface::interface2RequiredRole() : PCM::repository::OperationRequiredRole {
-	entityName := self.name;
-	id := self.name + "_Role";
-	requiredInterface__OperationRequiredRole := self.resolveoneIn(MDSDTEAM17::repository::Interface::interface2PCM);
+	providedRoles_InterfaceProvidingEntity := provRoles;
+	requiredRoles_InterfaceRequiringEntity := reqRoles;
 }
 
 //Interfaces, Signaturen und Parameter
 mapping MDSDTEAM17::repository::Interface::interface2PCM() : PCM::repository::OperationInterface {
-	id := "I" + self.name;
+	var roleName = "I" + self.name;
+	entityName := roleName;
+	id := roleName;
 	signatures__OperationInterface := self.signatures->map signature2PCM();
 	
 }
 
 mapping MDSDTEAM17::repository::Signature::signature2PCM() : PCM::repository::OperationSignature {
 	id := self.name;
+	entityName := self.name;
 	returnType__OperationSignature := self.returnType.resolveoneIn(MDSDTEAM17::repository::Type::type2PCM, PCM::repository::DataType);
 	parameters__OperationSignature := self.parameters->map parameter2PCM();
 }
@@ -119,4 +110,5 @@ mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM() : PCM::repos
 //Datentypen
 mapping MDSDTEAM17::repository::Type::type2PCM() : PCM::repository::CompositeDataType {
 	id := self.name;
+	entityName := self.name;
 }
