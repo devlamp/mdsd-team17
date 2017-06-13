@@ -29,6 +29,15 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM, PCM::resourceenvironment::ResourceContainer);
 }
 
+// Components
+mapping MDSDTEAM17::repository::Component::comp2PCM(in repository : PCM::repository::Repository) : PCM::repository::BasicComponent 
+	// Only components are mapped. Composite components have their own mapping.
+	when { self.oclIsTypeOf(MDSDTEAM17::repository::Component) }
+{
+	entityName := self.name;
+	id := self.name;
+	repository__RepositoryComponent := repository;
+}
 
 //Repository View
 mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
