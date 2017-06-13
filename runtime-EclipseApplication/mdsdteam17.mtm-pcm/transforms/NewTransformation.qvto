@@ -42,14 +42,19 @@ mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Reposi
 }
 
 //Interfaces, Signaturen und Parameter
-mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM::repository::DataType)) : PCM::repository::OperationInterface {
+mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationInterface {
 	id := self.name;
 	signatures__OperationInterface := self.signatures->map signature2PCM(datatypes);
 }
 
-mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::DataType)) : PCM::repository::OperationSignature {
+mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationSignature {
 	id := self.name;
-	//returnType__OperationSignature := datatypes
+	returnType__OperationSignature := datatypes->any(x | x.id = self.returnType.name);
+	parameters__OperationSignature := self.parameters->map parameter2PCM();
+}
+
+mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM() : PCM::repository::Parameter {
+	parameterName := self.name;
 }
 
 //Datentypen
