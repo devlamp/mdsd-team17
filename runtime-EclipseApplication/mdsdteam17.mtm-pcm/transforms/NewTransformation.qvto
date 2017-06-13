@@ -27,6 +27,13 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	id := self.name;
 	connectedResourceContainers_LinkingResource := 
 		self.containers.resolveIn(MDSDTEAM17::environment::Container::container2PCM, PCM::resourceenvironment::ResourceContainer);
+	var o = object PCM::resourceenvironment::CommunicationLinkResourceSpecification {
+		communicationLinkResourceType_CommunicationLinkResourceSpecification := new PCM::resourcetype::CommunicationLinkResourceType();
+		latency_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
+		throughput_CommunicationLinkResourceSpecification := new PCM::core::PCMRandomVariable();
+	};
+	
+	communicationLinkResourceSpecifications_LinkingResource := o;
 }
 
 
@@ -50,11 +57,12 @@ mapping MDSDTEAM17::repository::Interface::interface2PCM(in datatypes : Set(PCM:
 mapping MDSDTEAM17::repository::Signature::signature2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::OperationSignature {
 	id := self.name;
 	returnType__OperationSignature := datatypes->any(x | x.id = self.returnType.name);
-	parameters__OperationSignature := self.parameters->map parameter2PCM();
+	parameters__OperationSignature := self.parameters->map parameter2PCM(datatypes->reject(x | x.id = "void"));
 }
 
-mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM() : PCM::repository::Parameter {
+mapping MDSDTEAM17::repository::SignatureParameter::parameter2PCM(in datatypes : Set(PCM::repository::CompositeDataType)) : PCM::repository::Parameter {
 	parameterName := self.name;
+	dataType__Parameter := datatypes->any(x | x.id = self.type.name);
 }
 
 //Datentypen
@@ -65,30 +73,6 @@ mapping MDSDTEAM17::repository::Type::void2PCM() : PCM::repository::CompositeDat
 mapping MDSDTEAM17::repository::ComplexType::complexDT2PCM() : PCM::repository::CompositeDataType {
 	id := self.name;
 }
-
-/*mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::PrimitiveDataType {
-	if (self.name = "int"){ 
-		type := PCM::repository::PrimitiveTypeEnum::INT;
-	}
-	else if(self.name = "string"){
-		type := PCM::repository::PrimitiveTypeEnum::STRING;
-	}
-	else if(self.name = "bool"){
-		type := PCM::repository::PrimitiveTypeEnum::BOOL;
-	}
-	else if (self.name = "double"){ 
-		type := PCM::repository::PrimitiveTypeEnum::DOUBLE;
-	}
-	else if (self.name = "char"){ 
-		type := PCM::repository::PrimitiveTypeEnum::CHAR;
-	}
-	else if (self.name = "byte"){ 
-		type := PCM::repository::PrimitiveTypeEnum::BYTE;
-	}
-	else if (self.name = "long"){ 
-		type := PCM::repository::PrimitiveTypeEnum::LONG;
-	}
-}*/
 
 mapping MDSDTEAM17::repository::SimpleType::simpleDT2PCM() : PCM::repository::CompositeDataType {
 	id := self.name
