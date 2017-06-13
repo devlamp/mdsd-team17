@@ -4,24 +4,34 @@ modeltype PCM uses 'http://palladiosimulator.org/PalladioComponentModel/5.2';
 transformation EnvironmentTransformation(in MDSD : MDSDTEAM17, out PCM);
 
 main() {
-	var asds = MDSD.objects()[MDSDTEAM17::environment::Environment];
- 	asds->map env2PCM();
+	var environments = MDSD.objects()[MDSDTEAM17::environment::Environment];
+ 	environments->map env2PCM();
  	
  	var repository = MDSD.objects()[MDSDTEAM17::repository::Repository];
  	repository->map repo2PCM();
  	
  	var systems = MDSD.objects()[MDSDTEAM17::assembly::CompositeComponent]->select(x | x.isSystem());
  	systems->map system2PCM();
+ 	
+ 	var allocations = MDSD.objects()[MDSDTEAM17::allocation::Allocation];
+ 	allocations->map allocation2PCM();
 }
 
 //Allocation View
 mapping MDSDTEAM17::allocation::Allocation::allocation2PCM() : PCM::allocation::Allocation {
 	id := self.name;
 	entityName := self.name;
-	//allocationContexts_Allocation := self.allocationcontexts.map allocContext2PCM();
+	allocationContexts_Allocation := self.allocationcontexts.map allocContext2PCM(self);
+	system_Allocation := self.compositecomponent.resolveoneIn(MDSDTEAM17::assembly::CompositeComponent::system2PCM);
 }
 
-mapping MDSDTEAM17::allocation::AllocationContext::allocContext2PCM() : PCM::allocation::AllocationContext {
+mapping MDSDTEAM17::allocation::AllocationContext::allocContext2PCM(allocation : MDSDTEAM17::allocation::Allocation) : PCM::allocation::AllocationContext {
+	var name = allocation.name + "_" + self.topLevelContext.name + "_On_" + self.container.name;
+	id := name;
+	entityName := name;
+	resourceContainer_AllocationContext := self.container.resolveoneIn(MDSDTEAM17::environment::Container::container2PCM);
+	assemblyContext_AllocationContext := self.topLevelContext.resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
+	allocation_AllocationContext := allocation.late resolveoneIn(MDSDTEAM17::allocation::Allocation::allocation2PCM);
 }
 
 //Environment View
