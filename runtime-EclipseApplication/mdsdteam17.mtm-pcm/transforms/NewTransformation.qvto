@@ -10,5 +10,19 @@ main() {
 }
 
 mapping MDSDTEAM17::environment::Environment::env2PCM() : PCM::resourceenvironment::ResourceEnvironment {
+	var containers = self.containers.map container2PCM();
 	entityName := self.name;
+	resourceContainer_ResourceEnvironment := containers;
+	linkingResources__ResourceEnvironment := self.containerLinks.map link2PCM(containers->asSet());
+}
+
+mapping MDSDTEAM17::environment::Container::container2PCM() : PCM::resourceenvironment::ResourceContainer {
+	entityName := self.name;
+	id := self.name;
+}
+
+mapping MDSDTEAM17::environment::Link::link2PCM(in containers : Set(PCM::resourceenvironment::ResourceContainer)) : PCM::resourceenvironment::LinkingResource {
+	entityName := self.name;
+	id := self.name;
+	connectedResourceContainers_LinkingResource := containers;
 }
