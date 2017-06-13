@@ -16,7 +16,9 @@
       <signatures name="upload" returnType="//@types.0"/>
     </interfaces>
     <interfaces name="Sound">
-      <signatures name="watermark" returnType="//@types.0"/>
+      <signatures name="watermark" returnType="//@types.0">
+        <parameters name="Test" type="//@types.2"/>
+      </signatures>
     </interfaces>
     <interfaces name="AudioDB">
       <signatures name="queryDB" returnType="//@types.0"/>
