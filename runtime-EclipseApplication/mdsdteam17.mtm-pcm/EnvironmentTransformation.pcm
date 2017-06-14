@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:resourcetype="http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2" xsi:schemaLocation="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//repository http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourceenvironment http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourcetype">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:resourcetype="http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" xsi:schemaLocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//allocation http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//core/composition http://palladiosimulator.org/PalladioComponentModel/Repository/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//repository http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourceenvironment http://palladiosimulator.org/PalladioComponentModel/ResourceType/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//resourcetype http://palladiosimulator.org/PalladioComponentModel/System/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//system">
   <resourceenvironment:ResourceEnvironment entityName="Env1">
     <linkingResources__ResourceEnvironment id="Network" entityName="Network" connectedResourceContainers_LinkingResource="ApplicationServer DatabaseServer">
-      <communicationLinkResourceSpecifications_LinkingResource communicationLinkResourceType_CommunicationLinkResourceSpecification="/1">
-        <latency_CommunicationLinkResourceSpecification/>
-        <throughput_CommunicationLinkResourceSpecification/>
-      </communicationLinkResourceSpecifications_LinkingResource>
+      <communicationLinkResourceSpecifications_LinkingResource communicationLinkResourceType_CommunicationLinkResourceSpecification="/1"/>
     </linkingResources__ResourceEnvironment>
+    <resourceContainer_ResourceEnvironment id="Test" entityName="Test"/>
     <resourceContainer_ResourceEnvironment id="ApplicationServer" entityName="ApplicationServer"/>
     <resourceContainer_ResourceEnvironment id="DatabaseServer" entityName="DatabaseServer"/>
-    <resourceContainer_ResourceEnvironment id="Test" entityName="Test"/>
   </resourceenvironment:ResourceEnvironment>
   <resourcetype:CommunicationLinkResourceType/>
-  <repository:Repository id="MDSDRepository">
+  <repository:Repository id="MDSDRepository" entityName="MDSDRepository">
     <components__Repository xsi:type="repository:CompositeComponent" id="MediaStore" entityName="MediaStore">
-      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="MediaStore_Role" entityName="MediaStore" providedInterface__OperationProvidedRole="IMediaStore"/>
-      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="AudioDB_Role" entityName="AudioDB" requiredInterface__OperationRequiredRole="IAudioDB"/>
-    </components__Repository>
-    <components__Repository xsi:type="repository:BasicComponent" id="DigitalWatermarking" entityName="DigitalWatermarking">
-      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Sound_Role" entityName="Sound" providedInterface__OperationProvidedRole="ISound"/>
-    </components__Repository>
-    <components__Repository xsi:type="repository:CompositeComponent" id="System" entityName="System">
-      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="HTTP_Role" entityName="HTTP" providedInterface__OperationProvidedRole="IHTTP"/>
-    </components__Repository>
-    <components__Repository xsi:type="repository:BasicComponent" id="MediaManager" entityName="MediaManager">
-      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="Sound_Role" entityName="Sound" requiredInterface__OperationRequiredRole="ISound"/>
+      <assemblyContexts__ComposedStructure id="DigitalWatermarking_Inside_MediaStore_AssemblyContext" entityName="DigitalWatermarking_Inside_MediaStore_AssemblyContext" encapsulatedComponent__AssemblyContext="DigitalWatermarking"/>
+      <assemblyContexts__ComposedStructure id="MediaManager_Inside_MediaStore_AssemblyContext" entityName="MediaManager_Inside_MediaStore_AssemblyContext" encapsulatedComponent__AssemblyContext="MediaManager"/>
+      <assemblyContexts__ComposedStructure id="DBCache_Inside_MediaStore_AssemblyContext" entityName="DBCache_Inside_MediaStore_AssemblyContext" encapsulatedComponent__AssemblyContext="DBCache"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="From_DigitalWatermarking_To_MediaManager_Of_Sound_Inside_MediaStore_AssemblyConnector" entityName="From_DigitalWatermarking_To_MediaManager_Of_Sound_Inside_MediaStore_AssemblyConnector" requiringAssemblyContext_AssemblyConnector="MediaManager_Inside_MediaStore_AssemblyContext" providingAssemblyContext_AssemblyConnector="DigitalWatermarking_Inside_MediaStore_AssemblyContext" providedRole_AssemblyConnector="DigitalWatermarking_Sound_ProvidedRole" requiredRole_AssemblyConnector="MediaManager_Sound_RequiredRole"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="Delegating_Required_From_DBCache_Of_AudioDB_Inside_MediaStore_DelegationConnector" entityName="Delegating_Required_From_DBCache_Of_AudioDB_Inside_MediaStore_DelegationConnector" innerProvidedRole_ProvidedDelegationConnector="DBCache_AudioDB_ProvidedRole" outerProvidedRole_ProvidedDelegationConnector="DBCache_AudioDB_ProvidedRole" assemblyContext_ProvidedDelegationConnector="DBCache_Inside_MediaStore_AssemblyContext"/>
+      <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="From_DBCache_To_MediaManager_Of_AudioDB_Inside_MediaStore_AssemblyConnector" entityName="From_DBCache_To_MediaManager_Of_AudioDB_Inside_MediaStore_AssemblyConnector" requiringAssemblyContext_AssemblyConnector="MediaManager_Inside_MediaStore_AssemblyContext" providingAssemblyContext_AssemblyConnector="DBCache_Inside_MediaStore_AssemblyContext" providedRole_AssemblyConnector="DBCache_AudioDB_ProvidedRole" requiredRole_AssemblyConnector="MediaManager_AudioDB_RequiredRole"/>
+      <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="Delegating_Provided_From_MediaManager_Of_MediaStore_Inside_MediaStore_DelegationConnector" entityName="Delegating_Provided_From_MediaManager_Of_MediaStore_Inside_MediaStore_DelegationConnector" innerProvidedRole_ProvidedDelegationConnector="MediaManager_MediaStore_ProvidedRole" outerProvidedRole_ProvidedDelegationConnector="MediaManager_MediaStore_ProvidedRole" assemblyContext_ProvidedDelegationConnector="MediaManager_Inside_MediaStore_AssemblyContext"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="MediaStore_MediaStore_ProvidedRole" entityName="MediaStore_MediaStore_ProvidedRole" providedInterface__OperationProvidedRole="IMediaStore"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MediaStore_AudioDB_RequiredRole" entityName="MediaStore_AudioDB_RequiredRole" requiredInterface__OperationRequiredRole="IAudioDB"/>
     </components__Repository>
     <components__Repository xsi:type="repository:BasicComponent" id="WebGUI" entityName="WebGUI">
-      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MediaStore_Role" entityName="MediaStore" requiredInterface__OperationRequiredRole="IMediaStore"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="WebGUI_HTTP_ProvidedRole" entityName="WebGUI_HTTP_ProvidedRole" providedInterface__OperationProvidedRole="IHTTP"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="WebGUI_MediaStore_RequiredRole" entityName="WebGUI_MediaStore_RequiredRole" requiredInterface__OperationRequiredRole="IMediaStore"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="MediaManager" entityName="MediaManager">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="MediaManager_MediaStore_ProvidedRole" entityName="MediaManager_MediaStore_ProvidedRole" providedInterface__OperationProvidedRole="IMediaStore"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MediaManager_Sound_RequiredRole" entityName="MediaManager_Sound_RequiredRole" requiredInterface__OperationRequiredRole="ISound"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MediaManager_AudioDB_RequiredRole" entityName="MediaManager_AudioDB_RequiredRole" requiredInterface__OperationRequiredRole="IAudioDB"/>
     </components__Repository>
     <components__Repository xsi:type="repository:BasicComponent" id="PoolingAudioDB" entityName="PoolingAudioDB">
-      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="AudioDB_Role" entityName="AudioDB" providedInterface__OperationProvidedRole="IAudioDB"/>
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="PoolingAudioDB_AudioDB_ProvidedRole" entityName="PoolingAudioDB_AudioDB_ProvidedRole" providedInterface__OperationProvidedRole="IAudioDB"/>
     </components__Repository>
-    <components__Repository xsi:type="repository:BasicComponent" id="DBCache" entityName="DBCache"/>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="IHTTP">
-      <signatures__OperationInterface id="HTTPDownload" returnType__OperationSignature="void"/>
-      <signatures__OperationInterface id="HTTPUpload" returnType__OperationSignature="void"/>
-    </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="IAudioDB">
-      <signatures__OperationInterface id="addFile" returnType__OperationSignature="void"/>
-      <signatures__OperationInterface id="queryDB" returnType__OperationSignature="void"/>
-    </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="IMediaStore">
-      <signatures__OperationInterface id="download" returnType__OperationSignature="void"/>
-      <signatures__OperationInterface id="upload" returnType__OperationSignature="void"/>
-    </interfaces__Repository>
-    <interfaces__Repository xsi:type="repository:OperationInterface" id="ISound">
-      <signatures__OperationInterface id="watermark" returnType__OperationSignature="void">
+    <components__Repository xsi:type="repository:BasicComponent" id="DigitalWatermarking" entityName="DigitalWatermarking">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="DigitalWatermarking_Sound_ProvidedRole" entityName="DigitalWatermarking_Sound_ProvidedRole" providedInterface__OperationProvidedRole="ISound"/>
+    </components__Repository>
+    <components__Repository xsi:type="repository:BasicComponent" id="DBCache" entityName="DBCache">
+      <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="DBCache_AudioDB_ProvidedRole" entityName="DBCache_AudioDB_ProvidedRole" providedInterface__OperationProvidedRole="IAudioDB"/>
+      <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="DBCache_AudioDB_RequiredRole" entityName="DBCache_AudioDB_RequiredRole" requiredInterface__OperationRequiredRole="IAudioDB"/>
+    </components__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="ISound" entityName="ISound">
+      <signatures__OperationInterface id="watermark" entityName="watermark" returnType__OperationSignature="void">
         <parameters__OperationSignature dataType__Parameter="CompA" parameterName="Test"/>
       </signatures__OperationInterface>
     </interfaces__Repository>
-    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="void"/>
-    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="CompA"/>
-    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="int"/>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IAudioDB" entityName="IAudioDB">
+      <signatures__OperationInterface id="queryDB" entityName="queryDB" returnType__OperationSignature="void"/>
+      <signatures__OperationInterface id="addFile" entityName="addFile" returnType__OperationSignature="void"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IMediaStore" entityName="IMediaStore">
+      <signatures__OperationInterface id="download" entityName="download" returnType__OperationSignature="void"/>
+      <signatures__OperationInterface id="upload" entityName="upload" returnType__OperationSignature="void"/>
+    </interfaces__Repository>
+    <interfaces__Repository xsi:type="repository:OperationInterface" id="IHTTP" entityName="IHTTP">
+      <signatures__OperationInterface id="HTTPUpload" entityName="HTTPUpload" returnType__OperationSignature="void"/>
+      <signatures__OperationInterface id="HTTPDownload" entityName="HTTPDownload" returnType__OperationSignature="void"/>
+    </interfaces__Repository>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="void" entityName="void"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="CompA" entityName="CompA"/>
+    <dataTypes__Repository xsi:type="repository:CompositeDataType" id="int" entityName="int"/>
   </repository:Repository>
+  <system:System id="System" entityName="System">
+    <assemblyContexts__ComposedStructure id="MediaStore_Inside_System_AssemblyContext" entityName="MediaStore_Inside_System_AssemblyContext" encapsulatedComponent__AssemblyContext="MediaStore"/>
+    <assemblyContexts__ComposedStructure id="PoolingAudioDB_Inside_System_AssemblyContext" entityName="PoolingAudioDB_Inside_System_AssemblyContext" encapsulatedComponent__AssemblyContext="PoolingAudioDB"/>
+    <assemblyContexts__ComposedStructure id="WebGUI_Inside_System_AssemblyContext" entityName="WebGUI_Inside_System_AssemblyContext" encapsulatedComponent__AssemblyContext="WebGUI"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System_HTTP_ProvidedRole" entityName="System_HTTP_ProvidedRole" providedInterface__OperationProvidedRole="IHTTP"/>
+  </system:System>
+  <allocation:Allocation id="MDSDAllocation" entityName="MDSDAllocation" system_Allocation="System">
+    <allocationContexts_Allocation id="MDSDAllocation_PoolingAudioDB_On_DatabaseServer" entityName="MDSDAllocation_PoolingAudioDB_On_DatabaseServer" resourceContainer_AllocationContext="DatabaseServer" assemblyContext_AllocationContext="PoolingAudioDB_Inside_System_AssemblyContext"/>
+    <allocationContexts_Allocation id="MDSDAllocation_WebGUI_On_ApplicationServer" entityName="MDSDAllocation_WebGUI_On_ApplicationServer" resourceContainer_AllocationContext="ApplicationServer" assemblyContext_AllocationContext="WebGUI_Inside_System_AssemblyContext"/>
+    <allocationContexts_Allocation id="MDSDAllocation_MediaStore_On_ApplicationServer" entityName="MDSDAllocation_MediaStore_On_ApplicationServer" resourceContainer_AllocationContext="ApplicationServer" assemblyContext_AllocationContext="MediaStore_Inside_System_AssemblyContext"/>
+  </allocation:Allocation>
 </xmi:XMI>
