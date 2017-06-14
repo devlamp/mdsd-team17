@@ -65,6 +65,51 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 	*/
 }
 
+//Repository View
+//das System (==Spezialfall einer zusammengesetzten Komponente) wird hier herausgefiltert und später noch einmal gesondert behndelt
+mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
+	id := self.name;
+	entityName := self.name;
+	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
+	interfaces__Repository := self.interfaces->map interface2PCM();
+	components__Repository := self.components->select(x | not x.isSystem())->map componentOrCompositionComponent2PCM();
+}
+
+
+//Komponenten
+//Aufteilung in Basiskomponenten und zusammengesetzte Komponenten
+mapping MDSDTEAM17::repository::Component::componentOrCompositionComponent2PCM() : PCM::repository::RepositoryComponent {
+	init {
+		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
+			result := self.map component2PCM();
+		} else {
+			result := self.oclAsType(MDSDTEAM17::assembly::CompositeComponent).map compositComponent2PCM();	
+		}
+	}
+}
+
+//Komponenten
+mapping MDSDTEAM17::repository::Component::component2PCM() : PCM::repository::BasicComponent {
+	entityName := self.name;
+	id := self.name;
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
+}
+
+//Zusammengesetzte Komponenten
+mapping MDSDTEAM17::assembly::CompositeComponent::compositComponent2PCM() : PCM::repository::CompositeComponent {
+
+	var assConnectors = self.assemblyconnectors.map assemblyConnector2PCM(self);
+	var delConnectors = self.delegationconnectors.map providedDelegationConnector2PCM(self);
+	
+	entityName := self.name;
+	id := self.name;
+	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
+	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
+	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
+	connectors__ComposedStructure := assConnectors->union(delConnectors);
+}
+
 //System als Spezialfall einer zusammengesetzten Komponente
 mapping MDSDTEAM17::assembly::CompositeComponent::system2PCM() : PCM::system::System 
 {
@@ -77,16 +122,6 @@ mapping MDSDTEAM17::assembly::CompositeComponent::system2PCM() : PCM::system::Sy
 	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
 	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
 	connectors__ComposedStructure := assConnectors->union(delConnectors);
-}
-
-//Repository View
-//das System (==Spezialfall einer zusammengesetzten Komponente) wird hier herausgefiltert und später noch einmal gesondert behndelt
-mapping MDSDTEAM17::repository::Repository::repo2PCM() : PCM::repository::Repository {
-	id := self.name;
-	entityName := self.name;
-	dataTypes__Repository := MDSD.objects()[MDSDTEAM17::repository::Type]->map type2PCM();
-	interfaces__Repository := self.interfaces->map interface2PCM();
-	components__Repository := self.components->select(x | not x.isSystem())->map componentOrCompositionComponent2PCM();
 }
 
 //Assembly Context
@@ -126,40 +161,6 @@ mapping MDSDTEAM17::assembly::DelegationConnector::requiredDelegationConnector2P
 	assemblyContext_RequiredDelegationConnector := self.assemblyContext.late resolveoneIn(MDSDTEAM17::assembly::AssemblyContext::assemblyContext2PCM);
 	innerRequiredRole_RequiredDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
 	outerRequiredRole_RequiredDelegationConnector := self.interface.late resolveoneIn(MDSDTEAM17::repository::Interface::requiredInterface2PCMRole);
-}
-
-//Komponenten
-//Aufteilung in Basiskomponenten und zusammengesetzte Komponenten
-mapping MDSDTEAM17::repository::Component::componentOrCompositionComponent2PCM() : PCM::repository::RepositoryComponent {
-	init {
-		if (self.oclIsTypeOf(MDSDTEAM17::repository::Component)) {
-			result := self.map component2PCM();
-		} else {
-			result := self.oclAsType(MDSDTEAM17::assembly::CompositeComponent).map compositComponent2PCM();	
-		}
-	}
-}
-
-//Komponenten
-mapping MDSDTEAM17::repository::Component::component2PCM() : PCM::repository::BasicComponent {
-	entityName := self.name;
-	id := self.name;
-	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
-	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
-}
-
-//Zusammengesetzte Komponenten
-mapping MDSDTEAM17::assembly::CompositeComponent::compositComponent2PCM() : PCM::repository::CompositeComponent {
-
-	var assConnectors = self.assemblyconnectors.map assemblyConnector2PCM(self);
-	var delConnectors = self.delegationconnectors.map providedDelegationConnector2PCM(self);
-	
-	entityName := self.name;
-	id := self.name;
-	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
-	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
-	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
-	connectors__ComposedStructure := assConnectors->union(delConnectors);
 }
 
 //Interfaces, die von einer Komponente angeboten werden

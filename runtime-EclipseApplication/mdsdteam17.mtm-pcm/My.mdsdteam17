@@ -3,7 +3,6 @@
   <views xsi:type="environment:Environment" name="Env1">
     <containers name="DatabaseServer"/>
     <containers name="ApplicationServer"/>
-    <containers name="Test"/>
     <containerLinks name="Network" containers="//@views.0/@containers.1 //@views.0/@containers.0"/>
   </views>
   <views xsi:type="repository:Repository" name="MDSDRepository">
@@ -16,9 +15,7 @@
       <signatures name="upload" returnType="//@types.0"/>
     </interfaces>
     <interfaces name="Sound">
-      <signatures name="watermark" returnType="//@types.0">
-        <parameters name="Test" type="//@types.2"/>
-      </signatures>
+      <signatures name="watermark" returnType="//@types.0"/>
     </interfaces>
     <interfaces name="AudioDB">
       <signatures name="queryDB" returnType="//@types.0"/>
@@ -53,6 +50,4 @@
     <allocationcontexts topLevelContext="//@views.1/@components.6/@elements.2" container="//@views.0/@containers.0"/>
   </views>
   <types name="void"/>
-  <types xsi:type="repository:SimpleType" name="int"/>
-  <types xsi:type="repository:ComplexType" name="CompA"/>
 </mdsdteam17:Modelcontainer>
