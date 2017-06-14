@@ -68,11 +68,15 @@ mapping MDSDTEAM17::environment::Link::link2PCM() : PCM::resourceenvironment::Li
 //System als Spezialfall einer zusammengesetzten Komponente
 mapping MDSDTEAM17::assembly::CompositeComponent::system2PCM() : PCM::system::System 
 {
+	var assConnectors = self.assemblyconnectors.map assemblyConnector2PCM(self);
+	var delConnectors = self.delegationconnectors.map providedDelegationConnector2PCM(self);
+	
 	entityName := self.name;
 	id := self.name;
 	providedRoles_InterfaceProvidingEntity := self.providedInterfaces.map providedInterface2PCMRole(self);
 	requiredRoles_InterfaceRequiringEntity := self.requiredInterfaces.map requiredInterface2PCMRole(self);
 	assemblyContexts__ComposedStructure := self.elements.map assemblyContext2PCM(self);
+	connectors__ComposedStructure := assConnectors->union(delConnectors);
 }
 
 //Repository View
