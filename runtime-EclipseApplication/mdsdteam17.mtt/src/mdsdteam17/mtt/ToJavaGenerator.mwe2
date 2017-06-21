@@ -8,7 +8,7 @@ var modelPath = "model"
 Workflow {
  
     bean = StandaloneSetup {
-        registerGeneratedEPackage = "sample.SamplePackage"
+        registerGeneratedEPackage = "mdsdteam17.Mdsdteam17Package"
     }
  
     component = DirectoryCleaner {
