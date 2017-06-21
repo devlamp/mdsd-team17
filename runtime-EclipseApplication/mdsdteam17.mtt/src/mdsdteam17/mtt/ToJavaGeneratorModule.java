@@ -13,7 +13,7 @@ public class ToJavaGeneratorModule extends AbstractGenericResourceRuntimeModule 
  
     @Override
     protected String getFileExtensions() {
-        return "sample";
+        return "cmdsl";
     }
  
     public Class<? extends IGenerator> bindIGenerator() {
