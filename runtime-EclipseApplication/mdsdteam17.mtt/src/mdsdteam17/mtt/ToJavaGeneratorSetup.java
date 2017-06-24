@@ -1,7 +1,6 @@
 package mdsdteam17.mtt;
 
-import org.eclipse.ocl.pivot.utilities.PivotStandaloneSetup;
-import org.eclipse.ocl.xtext.completeocl.CompleteOCLStandaloneSetup;
+import org.eclipse.ocl.xtext.oclinecore.OCLinEcoreStandaloneSetup;
 import org.eclipse.xtext.ISetup;
 
 import com.google.inject.Guice;
@@ -11,6 +10,9 @@ public class ToJavaGeneratorSetup implements ISetup {
  
     @Override
 	public Injector createInjectorAndDoEMFRegistration() {
+    	//OCLDelegateDomain.initialize(null);
+    	//PivotStandaloneSetup.doSetup();
+    	OCLinEcoreStandaloneSetup.doSetup();
 		Injector injector = createInjector();
 		register(injector);
 		return injector;
@@ -20,17 +22,12 @@ public class ToJavaGeneratorSetup implements ISetup {
 		return Guice.createInjector(new ToJavaGeneratorModule());
 	}
     
+	
     public void register(Injector injector) {
     	
     	//PivotStandaloneSetup.doSetup();
-    	CompleteOCLStandaloneSetup.doSetup();
+    //	CompleteOCLStandaloneSetup.doSetup();
     	
-    	/*
-    	OCLDelegateDomain.initialize(null);
-    	OCLinEcoreStandaloneSetup.doSetup();
-    	EssentialOCLStandaloneSetup.doSetup();
-    	OCLstdlib.install();
-    	*/
     	/*
     	String oclDelegateURI = OCLDelegateDomain.OCL_DELEGATE_URI;
     	EOperation.Internal.InvocationDelegate.Factory.Registry.INSTANCE.put(oclDelegateURI,

@@ -17,8 +17,7 @@ class ToJavaGenerator implements IGenerator {
     }
  
     def CharSequence compile(Interface e) '''
-    
-    interface «e.name» {
+    interface Â«e.nameÂ» {
     	
     }
     '''

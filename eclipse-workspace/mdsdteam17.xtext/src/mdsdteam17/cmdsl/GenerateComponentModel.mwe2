@@ -38,6 +38,9 @@ Workflow {
 			fragment = org.eclipse.xtext.generator.adapter.FragmentAdapter {
 				fragment = org.eclipse.xtext.generator.ecore2xtext.FormatterFragment {}
 			}
+			
+			
+
 
 			serializer = {
 				generateStub = false
