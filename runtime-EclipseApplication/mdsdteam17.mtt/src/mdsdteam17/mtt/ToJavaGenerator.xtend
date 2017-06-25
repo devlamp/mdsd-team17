@@ -37,11 +37,11 @@ class ToJavaGenerator implements IGenerator {
     
     static public class Helper {
     	
-    	static public void assertNull(object o) {
+    	static public void assertNull(Object o) {
     	
     	}
     	
-    	static public void assertNotNull(object o) {
+    	static public void assertNotNull(Object o) {
     	
     	}
     }
@@ -61,7 +61,7 @@ class ToJavaGenerator implements IGenerator {
     def CharSequence compile(Interface e) '''
     package «e.package_name»;
     
-    interface «e.jname» {
+    public interface «e.jname» {
     
     	«FOR s : e.eContents SEPARATOR '\n'»
     	«IF s instanceof Signature»
@@ -82,8 +82,9 @@ class ToJavaGenerator implements IGenerator {
     
     def CharSequence compile(Component e) '''
     package «e.package_name»;
-    
+    «IF e.requiredInterfaces.length > 0»
     import «(e.eContainer as Repository).package_name».Helper;
+    «ENDIF»
     «FOR s : getAllInterfaces(e)»
     	import «s.package_name».«s.jname»;
     «ENDFOR»
