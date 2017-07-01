@@ -226,37 +226,46 @@ public class CompositeComponentImpl extends ComponentImpl implements CompositeCo
 		return super.eIsSet(featureID);
 	}
 	
+	private EList<Interface> requiredInterfaces;
 	@Override
 	public EList<Interface> getRequiredInterfaces() {
+		if (requiredInterfaces != null) {
+			return requiredInterfaces;
+		}
 		
-		EList<Interface> required = new EObjectResolvingEList<Interface>(Interface.class, this, RepositoryPackagePackage.COMPONENT__REQUIRED_INTERFACES);
+		requiredInterfaces = new EObjectResolvingEList<Interface>(Interface.class, this, RepositoryPackagePackage.COMPONENT__REQUIRED_INTERFACES);
 		
 		for(DelegationConnector delCon: this.getDelegationconnectors()) {
 			if (delCon.getDelegationType() == DelegationType.REQUIRED) {
 				Interface intf = delCon.getInterface();
 				if (intf != null) {
-					required.add(intf);
+					requiredInterfaces.add(intf);
 				}
 			}
 		}
 		
-		return required;
+		return requiredInterfaces;
 	}
 	
+	private EList<Interface> providedInterfaces;
 	@Override
 	public EList<Interface> getProvidedInterfaces() {
+		if (providedInterfaces != null) {
+			return providedInterfaces;
+		}
 		
-		EList<Interface> provided = new EObjectResolvingEList<Interface>(Interface.class, this, RepositoryPackagePackage.COMPONENT__PROVIDED_INTERFACES);
+		
+		providedInterfaces = new EObjectResolvingEList<Interface>(Interface.class, this, RepositoryPackagePackage.COMPONENT__PROVIDED_INTERFACES);
 		
 		for(DelegationConnector delCon: this.getDelegationconnectors()) {
 			if (delCon.getDelegationType() == DelegationType.PROVIDED) {
 				Interface intf = delCon.getInterface();
 				if (intf != null) {
-					provided.add(intf);
+					providedInterfaces.add(intf);
 				}
 			}
 		}
 		
-		return provided;
+		return providedInterfaces;
 	}
 } //CompositeComponentImpl
