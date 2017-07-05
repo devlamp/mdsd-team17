@@ -9,7 +9,7 @@
       <metamodel href="../../mdsdteam17/model/mdsdteam17.ecore#//componentbehavior"/>
       <metamodel href="../../mdsdteam17/model/mdsdteam17.ecore#//repository"/>
       <defaultLayer name="Default">
-        <edgeMappings name="providedInterface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteProvidedEdge']" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='BasicComponent']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='Interface']" targetFinderExpression="[self.providedInterfaces/]">
+        <edgeMappings name="providedInterface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteProvidedEdge']" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='BasicComponent'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='CompositeComponent']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='Interface']" targetFinderExpression="[self.providedInterfaces/]">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription showIcon="false" labelExpression="&lt;&lt;provides>>">
@@ -17,7 +17,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="requiredInterface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteRequiredEdge']" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='BasicComponent']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='Interface']" targetFinderExpression="feature:requiredInterfaces">
+        <edgeMappings name="requiredInterface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteRequiredEdge']" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='BasicComponent'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='CompositeComponent']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@containerMappings[name='Interface']" targetFinderExpression="feature:requiredInterfaces">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelExpression="&lt;&lt;requires>>">
@@ -25,7 +25,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <containerMappings name="BasicComponent" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" semanticCandidatesExpression="feature:components" domainClass="repository.Component" childrenPresentation="List">
+        <containerMappings name="BasicComponent" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" labelDirectEdit="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='editComponent']" semanticCandidatesExpression="[self.components->select(x | x.oclIsTypeOf(Component))/]" domainClass="repository.Component" childrenPresentation="List">
           <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -33,8 +33,8 @@
             <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
           </style>
         </containerMappings>
-        <containerMappings name="Interface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" semanticCandidatesExpression="feature:interfaces" domainClass="repository.Interface" childrenPresentation="List">
-          <subNodeMappings name="Signature" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" semanticCandidatesExpression="feature:signatures" domainClass="repository.Signature">
+        <containerMappings name="Interface" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" labelDirectEdit="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='editInterface']" semanticCandidatesExpression="feature:interfaces" domainClass="repository.Interface" childrenPresentation="List">
+          <subNodeMappings name="Signature" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" labelDirectEdit="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='editSignature']" semanticCandidatesExpression="feature:signatures" domainClass="repository.Signature">
             <style xsi:type="style:SquareDescription" labelExpression="service:signatureString()" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -42,6 +42,14 @@
             </style>
           </subNodeMappings>
           <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="CompositeComponent" deletionDescription="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteElement']" labelDirectEdit="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@toolSections.0/@ownedTools[name='editComponent']" semanticCandidatesExpression="[self.components->select(x | x.oclIsTypeOf(CompositeComponent))/]" domainClass="assembly.CompositeComponent" childrenPresentation="List">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="['&lt;&lt;Composite>>\n'.concat(self.name)/]">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -80,7 +88,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createProvideRelation" precondition="[preTarget.oclIsKindOf(Interface)/]" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@edgeMappings[name='providedInterface']" connectionStartPrecondition="[preSource.oclIsKindOf(Component)/]">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createProvideRelation" precondition="[preTarget.oclIsKindOf(Interface)/]" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@edgeMappings[name='providedInterface']" connectionStartPrecondition="[preSource.oclIsTypeOf(Component)/]">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -91,7 +99,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createRequireRelation" precondition="[preTarget.oclIsKindOf(Interface)/]" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@edgeMappings[name='requiredInterface']" connectionStartPrecondition="[preSource.oclIsKindOf(Component)/]">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createRequireRelation" precondition="[preTarget.oclIsKindOf(Interface)/]" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='RepositoryView']/@defaultLayer/@edgeMappings[name='requiredInterface']" connectionStartPrecondition="[preSource.oclIsTypeOf(Component)/]">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -112,7 +120,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteProvidedEdge" forceRefresh="true">
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteProvidedEdge" precondition="[element.oclIsTypeOf(Component)/]" forceRefresh="true">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
@@ -122,7 +130,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteRequiredEdge" forceRefresh="true">
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteRequiredEdge" precondition="[element.oclIsTypeOf(Component)/]" forceRefresh="true">
             <element name="element"/>
             <elementView name="elementView"/>
             <containerView name="containerView"/>
@@ -130,6 +138,24 @@
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
                 <subModelOperations xsi:type="tool_1:Unset" featureName="requiredInterfaces" elementExpression="aql:elementView.targetNode.target"/>
               </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editSignature" forceRefresh="true" inputLabelExpression="service:signatureString() ">
+            <mask mask="{0} {1}({2})"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="[self.editSignature(arg0, arg1, arg2)/]"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editComponent" inputLabelExpression="feature:name">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="[arg0.trim()/]"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="editInterface" forceRefresh="true" inputLabelExpression="feature:name">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="[arg0.trim()/]"/>
             </initialOperation>
           </ownedTools>
         </toolSections>

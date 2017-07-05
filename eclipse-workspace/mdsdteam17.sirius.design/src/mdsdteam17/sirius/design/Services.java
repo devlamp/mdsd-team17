@@ -1,8 +1,15 @@
 package mdsdteam17.sirius.design;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
+import mdsdteam17.Modelcontainer;
+import mdsdteam17.impl.ModelcontainerImpl;
+import mdsdteam17.repository.ParameterType;
 import mdsdteam17.repository.Signature;
+import mdsdteam17.repository.SignatureParameter;
+import mdsdteam17.repository.Type;
+import mdsdteam17.repository.impl.SignatureParameterImpl;
 
 /**
  * The services class used by VSM.
@@ -17,6 +24,54 @@ public class Services {
       return self;
     }
     
+    
+    public EObject editSignature(Signature self, String rawReturnType, String rawName, String rawParameters) {
+    	//TODO: Regex to check signature
+    	
+    	self.getParameters().clear();
+    	self.setName(rawName);
+    	
+    	Modelcontainer model = (Modelcontainer)self.eContainer().eContainer().eContainer();
+    	
+    	EList<Type> types = model.getTypes();
+    	
+    	//Set Return-Type
+    	for(Type type : types) {
+    		if (type.getName().equalsIgnoreCase(rawReturnType)) {
+    			self.setReturnType(type);
+    			break;
+    		}
+    	}
+    	
+    	String[] parameterList = rawParameters.split(",");
+    	
+    	for(int i=0; i < parameterList.length; i++) {
+    		parameterList[i] = parameterList[i].trim();
+    		
+    		if (parameterList[i].equals("")) {
+    			continue;
+    		}
+    		
+    		String[] args = parameterList[i].split("(\\s)+");
+    		
+    		String typeString = args[0];
+    		String nameString = args[1];
+    		
+    		SignatureParameter p = new SignatureParameterImpl();
+    		
+    		p.setName(nameString);
+    		
+    		for(Type type : types) {
+        		if (type.getName().equalsIgnoreCase(typeString) && !nameString.equals("void")) {
+        			p.setType((ParameterType)type);
+        			break;
+        		}
+        	}
+    		
+    	}
+    	
+    	return self; 	
+    }
     
     public String signatureString(Signature self) {
     	String parameters = "";
