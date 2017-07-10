@@ -68,6 +68,8 @@ public class Services {
         		}
         	}
     		
+    		self.getParameters().add(p);
+    		
     	}
     	
     	return self; 	
@@ -82,7 +84,7 @@ public class Services {
     		parameters += " ";
     		parameters += self.getParameters().get(i).getName();
     		
-    		if (i < self.getParameters().size()) {
+    		if (i < self.getParameters().size() - 1) {
     			parameters += ", ";
     		}
     	}
