@@ -3,12 +3,15 @@ package mdsdteam17.sirius.design;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
+import mdsdteam17.Mdsdteam17Factory;
 import mdsdteam17.Modelcontainer;
 import mdsdteam17.impl.ModelcontainerImpl;
 import mdsdteam17.repository.ParameterType;
+import mdsdteam17.repository.RepositoryPackageFactory;
 import mdsdteam17.repository.Signature;
 import mdsdteam17.repository.SignatureParameter;
 import mdsdteam17.repository.Type;
+import mdsdteam17.repository.impl.RepositoryPackageFactoryImpl;
 import mdsdteam17.repository.impl.SignatureParameterImpl;
 
 /**
@@ -57,7 +60,7 @@ public class Services {
     		String typeString = args[0];
     		String nameString = args[1];
     		
-    		SignatureParameter p = new SignatureParameterImpl();
+    		SignatureParameter p = RepositoryPackageFactory.eINSTANCE.createSignatureParameter();
     		
     		p.setName(nameString);
     		
